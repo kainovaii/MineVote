@@ -4,7 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
-import fr.kainovaii.minevote.domains.voting.VotingRepository;
+import fr.kainovaii.minevote.domains.voter.VoterRepository;
 import fr.kainovaii.minevote.gui.VotingGui;
 import fr.kainovaii.minevote.http.api.Voter;
 import fr.kainovaii.minevote.utils.ApiClient;
@@ -15,11 +15,11 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-@CommandAlias("minevote")
+@CommandAlias("minevote|vote")
 @Description("Main command")
 public class MainCommand extends BaseCommand
 {
-    private VotingRepository votingRepo;
+    private VoterRepository votingRepo;
 
     @Default
     public void index(CommandSender sender) {

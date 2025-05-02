@@ -6,8 +6,8 @@ import fr.kainovaii.minevote.http.api.Voter;
 import fr.kainovaii.minevote.utils.ApiClient;
 import org.bukkit.Bukkit;
 
-public class VoterTask {
-
+public class VoterTask
+{
     private final MineVote plugin;
     private final TaskChainFactory taskFactory;
 
@@ -28,8 +28,7 @@ public class VoterTask {
                     } catch (Exception e) {
                         e.printStackTrace();
                         return null;
-                    }
-                })
+                    } })
                 .syncLast(voters -> {
                     if (voters != null) {
                         plugin.getLogger().info("Reçus : " + voters.size() + " votants.");

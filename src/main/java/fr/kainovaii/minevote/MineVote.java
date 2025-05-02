@@ -11,7 +11,8 @@ import fr.kainovaii.minevote.listeners.PlayerJoinListener;
 import fr.kainovaii.minevote.utils.SQLite;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class MineVote extends JavaPlugin {
+public final class MineVote extends JavaPlugin
+{
     private static MineVote instance;
     private PaperCommandManager commandManager;
     private SQLite sqLite;

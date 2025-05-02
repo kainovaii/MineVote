@@ -1,7 +1,6 @@
 package fr.kainovaii.minevote.utils;
 
 import fr.kainovaii.minevote.MineVote;
-import org.bukkit.plugin.Plugin;
 import org.javalite.activejdbc.Base;
 
 import java.io.File;
@@ -28,11 +27,21 @@ public class SQLite
 
     public void ensureTableExists() {
         Base.exec("""
-        CREATE TABLE IF NOT EXISTS votings (
+        CREATE TABLE IF NOT EXISTS voters (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             uuid TEXT NOT NULL UNIQUE,
             name TEXT NOT NULL,
-            voting INTEGER NOT NULL
+            voting INTEGER NOT NULL,
+            bank DECIMAL NOT NULL
+        )
+    """);
+
+        Base.exec("""
+        CREATE TABLE IF NOT EXISTS rewards (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL UNIQUE,
+            item TEXT NOT NULL,
+            price DECIMAL NOT NULL
         )
     """);
     }
