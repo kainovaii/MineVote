@@ -1,8 +1,8 @@
 package fr.kainovaii.minevote.gui;
 
-import fr.kainovaii.minevote.domains.Voting;
-import fr.kainovaii.minevote.gui.reflection.InventoryAPI;
-import fr.kainovaii.minevote.gui.reflection.ItemBuilder;
+import fr.kainovaii.minevote.domains.voting.VotingRepository;
+import fr.kainovaii.minevote.utils.gui.InventoryAPI;
+import fr.kainovaii.minevote.utils.gui.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -41,7 +41,7 @@ public class VotingGui extends InventoryAPI {
 
     public ItemStack playerHead()
     {
-        int voting = Voting.getVoting(player.getName());
+        int voting = VotingRepository.getVoting(player.getName());
         ItemStack skull = new ItemBuilder(Material.PLAYER_HEAD)
                 .name("§6" + player.getName())
                 .addLore(

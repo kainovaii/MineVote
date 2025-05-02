@@ -1,4 +1,4 @@
-package fr.kainovaii.minevote.gui.reflection;
+package fr.kainovaii.minevote.utils.gui;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

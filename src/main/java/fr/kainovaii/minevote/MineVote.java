@@ -2,7 +2,7 @@ package fr.kainovaii.minevote;
 
 import co.aikar.commands.PaperCommandManager;
 import fr.kainovaii.minevote.commands.MainCommand;
-import fr.kainovaii.minevote.gui.reflection.InventoryManager;
+import fr.kainovaii.minevote.utils.gui.InventoryManager;
 import fr.kainovaii.minevote.listeners.PlayerJoinListener;
 import fr.kainovaii.minevote.utils.SQLite;
 import org.bukkit.plugin.java.JavaPlugin;
