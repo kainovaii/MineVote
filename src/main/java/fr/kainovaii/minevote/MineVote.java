@@ -2,6 +2,7 @@ package fr.kainovaii.minevote;
 
 import co.aikar.commands.PaperCommandManager;
 import fr.kainovaii.minevote.commands.MainCommand;
+import fr.kainovaii.minevote.utils.ApiClient;
 import fr.kainovaii.minevote.utils.gui.InventoryManager;
 import fr.kainovaii.minevote.listeners.PlayerJoinListener;
 import fr.kainovaii.minevote.utils.SQLite;
@@ -19,6 +20,7 @@ public final class MineVote extends JavaPlugin {
         this.connectDatabase();
         this.registerListener();
         this.registerCommand();
+        ApiClient.init();
         InventoryManager.register(this);
     }
 
