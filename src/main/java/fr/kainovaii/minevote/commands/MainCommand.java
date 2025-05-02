@@ -5,7 +5,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
 import fr.kainovaii.minevote.domains.voter.VoterRepository;
-import fr.kainovaii.minevote.gui.VotingGui;
+import fr.kainovaii.minevote.gui.MainGui;
 import fr.kainovaii.minevote.http.api.Voter;
 import fr.kainovaii.minevote.utils.ApiClient;
 import fr.kainovaii.minevote.utils.Prefix;
@@ -24,7 +24,7 @@ public class MainCommand extends BaseCommand
     @Default
     public void index(CommandSender sender) {
         Player player = (Player) sender;
-        new VotingGui(player).open(player);
+        new MainGui(player).open(player);
     }
 
     @Subcommand("fetch")

@@ -10,17 +10,17 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
 
-public class VotingGui extends InventoryAPI {
+public class MainGui extends InventoryAPI {
 
     private final Player player;
     private final int page;
 
-    public VotingGui(Player player) {
+    public MainGui(Player player) {
         this(player, 0);
     }
 
-    public VotingGui(Player player, int page) {
-        super(27, "§8§bShop");
+    public MainGui(Player player, int page) {
+        super(27, "§8MineVote");
         this.player = player;
         this.page = page;
         setupMenu();
@@ -31,15 +31,16 @@ public class VotingGui extends InventoryAPI {
             setItem(slot, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).name("§f").build());
         }
 
-        setItem(4, this.playerHead());
-        setItem(13, new ItemBuilder(Material.DRAGON_EGG).name("§6Page 0").build(), event -> {
+        setItem(4, this.playerHead(player));
+        setItem(13, new ItemBuilder(Material.CHEST).name("§6Vote Store").build(), event -> {
             if (event.isLeftClick()) {
                 player.closeInventory();
+                new StoreGui(player).open(player);
             }
         });
     }
 
-    public ItemStack playerHead()
+    public static ItemStack playerHead(Player player)
     {
         int voting = VoterRepository.getVoting(player.getName());
         double bank = VoterRepository.getBank(player.getName());
