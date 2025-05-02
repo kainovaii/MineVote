@@ -1,7 +1,10 @@
 package fr.kainovaii.minevote;
 
 import co.aikar.commands.PaperCommandManager;
+import co.aikar.taskchain.BukkitTaskChainFactory;
+import co.aikar.taskchain.TaskChainFactory;
 import fr.kainovaii.minevote.commands.MainCommand;
+import fr.kainovaii.minevote.tasks.VoterTask;
 import fr.kainovaii.minevote.utils.ApiClient;
 import fr.kainovaii.minevote.utils.gui.InventoryManager;
 import fr.kainovaii.minevote.listeners.PlayerJoinListener;
@@ -12,6 +15,7 @@ public final class MineVote extends JavaPlugin {
     private static MineVote instance;
     private PaperCommandManager commandManager;
     private SQLite sqLite;
+    private TaskChainFactory taskChainFactory;
 
     @Override
     public void onEnable() {
@@ -20,6 +24,7 @@ public final class MineVote extends JavaPlugin {
         this.connectDatabase();
         this.registerListener();
         this.registerCommand();
+        this.registerTask();
         ApiClient.init();
         InventoryManager.register(this);
     }
@@ -31,6 +36,12 @@ public final class MineVote extends JavaPlugin {
         getLogger().info("┃┃┃┓┏┓┏┓┃┃┏┓╋┏┓  ┣┫┓┏  ┃┫ ┏┓┓┏┓┏┓┃┃┏┓┓┓\u001B[0m");
         getLogger().info("┛ ┗┗┛┗┗ ┗┛┗┛┗┗   ┻┛┗┫  ┛┗┛┗┻┗┛┗┗┛┗┛┗┻┗┗ \u001B[0m");
         getLogger().info("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+    }
+
+    public void registerTask()
+    {
+        this.taskChainFactory = BukkitTaskChainFactory.create(this);
+        new VoterTask(this, taskChainFactory).startRepeatingTask();
     }
 
     private void registerListener()

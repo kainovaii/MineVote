@@ -3,7 +3,9 @@ package fr.kainovaii.minevote.http.api;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
+import java.util.List;
+
 public interface VoterApi {
-    @GET("v1/e4e967ec-8599-4682-81b8-55e573134567")
-    Call<Voter> getVoter();
+    @GET("v1/c604c8b8-8b95-4dc1-a647-e0754bf8321a")
+    Call<List<Voter>> getVoters();
 }

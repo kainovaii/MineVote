@@ -8,9 +8,12 @@ import fr.kainovaii.minevote.domains.voting.VotingRepository;
 import fr.kainovaii.minevote.gui.VotingGui;
 import fr.kainovaii.minevote.http.api.Voter;
 import fr.kainovaii.minevote.utils.ApiClient;
+import fr.kainovaii.minevote.utils.Prefix;
 import jdk.jfr.Description;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 @CommandAlias("minevote")
 @Description("Main command")
@@ -27,14 +30,15 @@ public class MainCommand extends BaseCommand
     @Subcommand("fetch")
     public void fetchNewVote(CommandSender sender) {
         Player player = (Player) sender;
-
         new Thread(() -> {
             try {
-                Voter voter = ApiClient.getApi().getVoter().execute().body();
-
-                if (voter != null) {
-                    player.sendMessage("UUID: " + voter.uuid);
-                    player.sendMessage("Nom: " + voter.name);
+                List<Voter> voters = ApiClient.getApi().getVoters().execute().body();
+                if (voters != null && !voters.isEmpty()) {
+                    player.sendMessage(Prefix.BASE.get() + "Voter reçus: " + voters.size());
+                    for (Voter voter : voters) {
+                        player.sendMessage("UUID: " + voter.uuid);
+                        player.sendMessage("Nom: " + voter.name);
+                    }
                 } else {
                     player.sendMessage("Réponse vide !");
                 }
