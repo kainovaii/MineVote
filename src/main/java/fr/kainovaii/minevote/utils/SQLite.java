@@ -35,13 +35,20 @@ public class SQLite
             bank DECIMAL NOT NULL
         )
     """);
-
         Base.exec("""
         CREATE TABLE IF NOT EXISTS rewards (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL UNIQUE,
             item TEXT NOT NULL,
             price DECIMAL NOT NULL
+        )
+    """);
+        Base.exec("""
+        CREATE TABLE IF NOT EXISTS transactions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            amount DECIMAL NOT NULL UNIQUE,
+            reason TEXT NOT NULL UNIQUE,
+            createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
     """);
     }
