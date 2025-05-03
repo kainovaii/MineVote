@@ -1,6 +1,6 @@
 <p align="center">
     <br />
-    <img src="https://i.ibb.co/xSP0rgMn/Flux-Dev-A-stylized-logo-for-a-Minecraft-vote-plugin-featuring-3-removebg-preview.png" width="7%">
+    <img src="https://i.ibb.co/xSP0rgMn/Flux-Dev-A-stylized-logo-for-a-Minecraft-vote-plugin-featuring-3-removebg-preview.png" width="50%">
     <br />
 </p>
 <p align="center">
