@@ -6,6 +6,6 @@ import retrofit2.http.GET;
 import java.util.List;
 
 public interface VoterApi {
-    @GET("v1/c604c8b8-8b95-4dc1-a647-e0754bf8321a")
+    @GET("fetch-voter")
     Call<List<Voter>> getVoters();
 }

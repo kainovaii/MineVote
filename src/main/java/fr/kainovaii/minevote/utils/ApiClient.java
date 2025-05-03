@@ -10,7 +10,7 @@ public class ApiClient
 
     public static void init() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mocki.io/")
+                .baseUrl("http://localhost:8080/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(VoterApi.class);
