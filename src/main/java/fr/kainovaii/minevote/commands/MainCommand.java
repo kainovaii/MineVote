@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
+import com.gamingmesh.jobs.ItemBoostManager;
 import fr.kainovaii.minevote.domains.voter.VoterRepository;
 import fr.kainovaii.minevote.gui.MainGui;
 import fr.kainovaii.minevote.http.api.Voter;
@@ -46,5 +47,9 @@ public class MainCommand extends BaseCommand
                 e.printStackTrace();
             }
         }).start();
+    }
+    @Subcommand("boost")
+    public void boostSetter(CommandSender sender) {
+
     }
 }

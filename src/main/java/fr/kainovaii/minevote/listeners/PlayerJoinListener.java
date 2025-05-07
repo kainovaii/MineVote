@@ -10,14 +10,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PlayerJoinListener implements Listener
 {
-    private Voter voting;
-    private VoterRepository votingRepo;
+    private VoterRepository voterRepo;
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        voting = new Voter();
-        votingRepo = new VoterRepository();
-
+    public void onJoin(PlayerJoinEvent event)
+    {
+        voterRepo = new VoterRepository();
         Player player = event.getPlayer();
         String uuid = player.getUniqueId().toString();
         String name = player.getName();
@@ -25,7 +23,7 @@ public class PlayerJoinListener implements Listener
         Voter data = Voter.findFirst("uuid = ?", uuid);
 
         if (data == null) {
-            votingRepo.create(uuid, name);
+            voterRepo.create(uuid, name);
             player.sendMessage(Prefix.BASE.get() + "Bienvenue ! Tu as été ajouté à la base");
         } else {
             player.sendMessage(Prefix.BASE.get() + "Bienvenue §b" + data.getString("name"));

@@ -4,6 +4,7 @@ import co.aikar.commands.PaperCommandManager;
 import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChainFactory;
 import fr.kainovaii.minevote.commands.MainCommand;
+import fr.kainovaii.minevote.listeners.VotifierListener;
 import fr.kainovaii.minevote.tasks.VoterTask;
 import fr.kainovaii.minevote.utils.ApiClient;
 import fr.kainovaii.minevote.utils.gui.InventoryManager;
@@ -21,6 +22,7 @@ public final class MineVote extends JavaPlugin
     @Override
     public void onEnable() {
         instance = this;
+        saveDefaultConfig();
         this.registerMotd();
         this.connectDatabase();
         this.registerListener();
@@ -48,6 +50,7 @@ public final class MineVote extends JavaPlugin
     private void registerListener()
     {
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        getServer().getPluginManager().registerEvents(new VotifierListener(), this);
     }
 
     public void registerCommand()

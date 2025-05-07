@@ -9,4 +9,6 @@
 </p>
 
 ### TODO
-- Vote objective with boost 
+- Vote objective boost ([Jobs Reborn](https://www.spigotmc.org/resources/jobs-reborn.4216/update?update=498847))
+- Placeholders
+- Config file
