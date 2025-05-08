@@ -1,4 +1,4 @@
-package fr.kainovaii.minevote.listeners;
+package fr.kainovaii.minevote.integration.listeners;
 
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;

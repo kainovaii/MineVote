@@ -1,4 +1,4 @@
-package fr.kainovaii.minevote.http.api;
+package fr.kainovaii.minevote.integration.api;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

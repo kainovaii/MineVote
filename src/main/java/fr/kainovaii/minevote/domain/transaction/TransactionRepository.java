@@ -1,7 +1,6 @@
-package fr.kainovaii.minevote.domains.transactions;
+package fr.kainovaii.minevote.domain.transaction;
 
 import fr.kainovaii.minevote.MineVote;
-import fr.kainovaii.minevote.domains.voter.Voter;
 
 public class TransactionRepository
 {

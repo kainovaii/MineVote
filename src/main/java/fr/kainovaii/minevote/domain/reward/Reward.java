@@ -1,4 +1,4 @@
-package fr.kainovaii.minevote.domains.reward;
+package fr.kainovaii.minevote.domain.reward;
 
 import org.javalite.activejdbc.Model;
 

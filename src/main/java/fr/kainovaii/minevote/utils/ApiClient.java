@@ -1,6 +1,6 @@
 package fr.kainovaii.minevote.utils;
 
-import fr.kainovaii.minevote.http.api.VoterApi;
+import fr.kainovaii.minevote.integration.api.VoterApi;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

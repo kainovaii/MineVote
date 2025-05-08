@@ -1,6 +1,6 @@
 package fr.kainovaii.minevote.gui;
 
-import fr.kainovaii.minevote.domains.voter.VoterRepository;
+import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.utils.gui.InventoryAPI;
 import fr.kainovaii.minevote.utils.gui.ItemBuilder;
 import org.bukkit.Material;

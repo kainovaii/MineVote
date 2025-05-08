@@ -1,7 +1,7 @@
-package fr.kainovaii.minevote.listeners;
+package fr.kainovaii.minevote.integration.listeners;
 
-import fr.kainovaii.minevote.domains.voter.Voter;
-import fr.kainovaii.minevote.domains.voter.VoterRepository;
+import fr.kainovaii.minevote.domain.voter.Voter;
+import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.utils.Prefix;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,4 +1,4 @@
-package fr.kainovaii.minevote.domains.voter;
+package fr.kainovaii.minevote.domain.voter;
 
 import org.javalite.activejdbc.Model;
 

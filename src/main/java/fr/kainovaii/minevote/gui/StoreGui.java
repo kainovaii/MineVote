@@ -1,12 +1,9 @@
 package fr.kainovaii.minevote.gui;
 
-import fr.kainovaii.minevote.domains.voter.VoterRepository;
 import fr.kainovaii.minevote.utils.gui.InventoryAPI;
 import fr.kainovaii.minevote.utils.gui.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
 
