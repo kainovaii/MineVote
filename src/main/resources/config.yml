@@ -1,2 +1,6 @@
+prefix: "&7[&6MineVote&7] &f"
+website:
+  enable: false
+  host: 127.0.0.1
 voteCount: 0
 voteMax: 20

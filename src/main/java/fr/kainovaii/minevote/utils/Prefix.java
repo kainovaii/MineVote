@@ -1,7 +1,9 @@
 package fr.kainovaii.minevote.utils;
 
+import fr.kainovaii.minevote.MineVote;
+
 public enum Prefix {
-    BASE("§7[§6MineVote§7] §f");
+    BASE(MineVote.getInstance().getConfig().getString("prefix").replaceAll("&", "§"));
     private final String value;
 
     Prefix(String value) {

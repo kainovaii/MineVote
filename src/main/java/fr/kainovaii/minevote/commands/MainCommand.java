@@ -27,29 +27,4 @@ public class MainCommand extends BaseCommand
         Player player = (Player) sender;
         new MainGui(player).open(player);
     }
-
-    @Subcommand("fetch")
-    public void fetchNewVote(CommandSender sender) {
-        Player player = (Player) sender;
-        new Thread(() -> {
-            try {
-                List<Voter> voters = ApiClient.getApi().getVoters().execute().body();
-                if (voters != null && !voters.isEmpty()) {
-                    player.sendMessage(Prefix.BASE.get() + "Voter reçus: " + voters.size());
-                    for (Voter voter : voters) {
-                        player.sendMessage("UUID: " + voter.uuid);
-                        player.sendMessage("Nom: " + voter.name);
-                    }
-                } else {
-                    player.sendMessage("Réponse vide !");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
-    @Subcommand("boost")
-    public void boostSetter(CommandSender sender) {
-
-    }
 }

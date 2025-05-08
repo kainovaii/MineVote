@@ -7,9 +7,11 @@ import fr.kainovaii.minevote.commands.MainCommand;
 import fr.kainovaii.minevote.listeners.VotifierListener;
 import fr.kainovaii.minevote.tasks.VoterTask;
 import fr.kainovaii.minevote.utils.ApiClient;
+import fr.kainovaii.minevote.utils.MineVotePapiExpansion;
 import fr.kainovaii.minevote.utils.gui.InventoryManager;
 import fr.kainovaii.minevote.listeners.PlayerJoinListener;
 import fr.kainovaii.minevote.utils.SQLite;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MineVote extends JavaPlugin
@@ -30,6 +32,10 @@ public final class MineVote extends JavaPlugin
         this.registerTask();
         ApiClient.init();
         InventoryManager.register(this);
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new MineVotePapiExpansion().register();
+        }
     }
 
     private void registerMotd()
@@ -44,7 +50,9 @@ public final class MineVote extends JavaPlugin
     public void registerTask()
     {
         this.taskChainFactory = BukkitTaskChainFactory.create(this);
-        new VoterTask(this, taskChainFactory).startRepeatingTask();
+        if (getConfig().getBoolean("website.enable") ) {
+            new VoterTask(this, taskChainFactory).startRepeatingTask();
+        }
     }
 
     private void registerListener()

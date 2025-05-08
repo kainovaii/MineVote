@@ -21,24 +21,24 @@ public class VoterTask
     }
 
     private void fetchVoters() {
-        taskFactory.newChain()
-                .asyncFirst(() -> {
-                    try {
-                        return ApiClient.getApi().getVoters().execute().body();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        return null;
-                    } })
-                .syncLast(voters -> {
-                    if (voters != null) {
-                        plugin.getLogger().info("Reçus : " + voters.size() + " votants.");
-                        for (Voter voter : voters) {
-                            plugin.getLogger().info(" - " + voter.name + " (" + voter.uuid + ")");
+            taskFactory.newChain()
+                    .asyncFirst(() -> {
+                        try {
+                            return ApiClient.getApi().getVoters().execute().body();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return null;
+                        } })
+                    .syncLast(voters -> {
+                        if (voters != null) {
+                            plugin.getLogger().info("Reçus : " + voters.size() + " votants.");
+                            for (Voter voter : voters) {
+                                plugin.getLogger().info(" - " + voter.name + " (" + voter.uuid + ")");
+                            }
+                        } else {
+                            plugin.getLogger().warning("Échec de récupération de la liste des votants.");
                         }
-                    } else {
-                        plugin.getLogger().warning("Échec de récupération de la liste des votants.");
-                    }
-                })
-                .execute();
+                    })
+                    .execute();
     }
 }
