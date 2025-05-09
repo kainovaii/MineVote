@@ -10,17 +10,20 @@ public class VoterRepository
         voter = new Voter();
     }
 
-    public void create(String uuid, String name) {
+    public void create(String uuid, String name)
+    {
         voter.set("uuid", uuid, "name", name, "voting", 0, "bank", 0).saveIt();
         MineVote.getInstance().getLogger().info("Inséré : " + name);
     }
 
-    public static int getVoting(String name) {
+    public static int getVoting(String name)
+    {
         Voter player = Voter.findFirst("name = ?", name);
         return player != null ? player.getInteger("voting") : null;
     }
 
-    public static double getBank(String name) {
+    public static double getBank(String name)
+    {
         Voter player = Voter.findFirst("name = ?", name);
         return player != null ? player.getDouble("bank") : null;
     }

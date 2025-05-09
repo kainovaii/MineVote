@@ -9,7 +9,9 @@ public class TransactionRepository
     public TransactionRepository() {
         transaction = new Transaction();
     }
-        public void create(double amount, String reason) {
+
+    public void create(double amount, String reason)
+    {
         transaction.set("amount", amount, "reason", reason).saveIt();
         MineVote.getInstance().getLogger().info("New transaction: " + amount);
     }

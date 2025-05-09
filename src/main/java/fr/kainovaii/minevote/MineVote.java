@@ -4,6 +4,7 @@ import co.aikar.commands.PaperCommandManager;
 import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChainFactory;
 import fr.kainovaii.minevote.command.MainCommand;
+import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.integration.listeners.VotifierListener;
 import fr.kainovaii.minevote.integration.tasks.VoterTask;
 import fr.kainovaii.minevote.utils.ApiClient;
@@ -17,15 +18,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class MineVote extends JavaPlugin
 {
     private static MineVote instance;
+    private ConfigManager configManager;
     private PaperCommandManager commandManager;
     private SQLite sqLite;
     private TaskChainFactory taskChainFactory;
 
     @Override
     public void onEnable() {
-        instance = this;
-        saveDefaultConfig();
         this.registerMotd();
+        instance = this;
+        this.registerConfig();
         this.connectDatabase();
         this.registerListener();
         this.registerCommand();
@@ -36,6 +38,7 @@ public final class MineVote extends JavaPlugin
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new MineVotePapiExpansion().register();
         }
+        getLogger().info("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
     }
 
     private void registerMotd()
@@ -45,6 +48,12 @@ public final class MineVote extends JavaPlugin
         getLogger().info("┃┃┃┓┏┓┏┓┃┃┏┓╋┏┓  ┣┫┓┏  ┃┫ ┏┓┓┏┓┏┓┃┃┏┓┓┓\u001B[0m");
         getLogger().info("┛ ┗┗┛┗┗ ┗┛┗┛┗┗   ┻┛┗┫  ┛┗┛┗┻┗┛┗┗┛┗┛┗┻┗┗ \u001B[0m");
         getLogger().info("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+    }
+
+    public void registerConfig ()
+    {
+        configManager = new ConfigManager(this);
+        configManager.loadConfigs();
     }
 
     public void registerTask()
@@ -57,8 +66,8 @@ public final class MineVote extends JavaPlugin
 
     private void registerListener()
     {
-        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
-        getServer().getPluginManager().registerEvents(new VotifierListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
+        getServer().getPluginManager().registerEvents(new VotifierListener(this), this);
     }
 
     public void registerCommand()
@@ -72,6 +81,10 @@ public final class MineVote extends JavaPlugin
         sqLite = new SQLite();
         sqLite.connectDatabase();
         sqLite.ensureTableExists();
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
     }
 
     public static MineVote getInstance()
