@@ -2,5 +2,16 @@ prefix: "&7[&6MineVote&7] &f"
 website:
   enable: false
   host: 127.0.0.1
-voteCount: 0
-voteMax: 20
+voteCounter: 0
+voteObjective: 5
+providers:
+  serveur-prive:
+      url: 'https://serveur-prive.net/minecraft/monserveur'
+      token: '5jChWhii3oSOcZUyvTy1a2KWSCBWLJFj8EqI'
+
+rewards:
+  - 'give {player} minecraft:diamond 1'
+  - 'aach add 1 Custom.votes {player}'
+
+boost:
+  - 'jobs boost 2 86400'

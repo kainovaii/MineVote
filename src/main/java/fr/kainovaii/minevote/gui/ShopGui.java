@@ -7,16 +7,16 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 
-public class StoreGui extends InventoryAPI {
+public class ShopGui extends InventoryAPI {
 
     private final Player player;
     private final int page;
 
-    public StoreGui(Player player) {
+    public ShopGui(Player player) {
         this(player, 0);
     }
 
-    public StoreGui(Player player, int page) {
+    public ShopGui(Player player, int page) {
         super(27, "§8Vote shop");
         this.player = player;
         this.page = page;

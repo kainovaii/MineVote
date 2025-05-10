@@ -3,8 +3,12 @@ package fr.kainovaii.minevote.command;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Default;
+import co.aikar.commands.annotation.Subcommand;
+import fr.kainovaii.minevote.MineVote;
+import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.gui.MainGui;
+import fr.kainovaii.minevote.utils.Prefix;
 import jdk.jfr.Description;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,11 +17,24 @@ import org.bukkit.entity.Player;
 @Description("Main command")
 public class MainCommand extends BaseCommand
 {
-    private VoterRepository votingRepo;
+    private ConfigManager configManager;
+
+    public MainCommand ()
+    {
+        this.configManager = MineVote.getInstance().getConfigManager();
+    }
 
     @Default
     public void index(CommandSender sender) {
         Player player = (Player) sender;
         new MainGui(player).open(player);
+    }
+
+    @Subcommand("reload")
+    public void reload(CommandSender sender) {
+        Player player = (Player) sender;
+
+        configManager.reloadConfigs();
+        player.sendMessage(Prefix.BASE.get() + "the config has been reloaded");
     }
 }

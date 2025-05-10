@@ -9,9 +9,9 @@
 </p>
 
 ### TODO
-- ❌ Vote objective boost ([Jobs Reborn](https://www.spigotmc.org/resources/jobs-reborn.4216/update?update=498847))
+  - ✔️ Vote objective boost ([Jobs Reborn](https://www.spigotmc.org/resources/jobs-reborn.4216/update?update=498847))
   - ✔️ Placeholders
-  - ⏳ Config file
-  - ❌ Site list
+  - ✔️ Config file
+  - ✔️ Site list
   - ❌ Vote shop
   - ⏳ Refacto du code et optimisation
