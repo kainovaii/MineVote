@@ -7,7 +7,6 @@ import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
-import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.gui.MainGui;
 import fr.kainovaii.minevote.utils.Prefix;
 import jdk.jfr.Description;

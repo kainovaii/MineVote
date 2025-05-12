@@ -16,8 +16,6 @@ public class VoterRepository
         MineVote.getInstance().getLogger().info("Inséré : " + name);
     }
 
-
-
     public static double getBank(String name)
     {
         Voter player = Voter.findFirst("name = ?", name);

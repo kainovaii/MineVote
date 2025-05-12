@@ -1,7 +1,6 @@
 package fr.kainovaii.minevote;
 
 import co.aikar.commands.PaperCommandManager;
-import co.aikar.taskchain.TaskChainFactory;
 import fr.kainovaii.minevote.command.MainCommand;
 import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.listeners.VotifierListener;
@@ -16,9 +15,6 @@ public final class MineVote extends JavaPlugin
 {
     private static MineVote instance;
     private ConfigManager configManager;
-    private PaperCommandManager commandManager;
-    private SQLite sqLite;
-    private TaskChainFactory taskChainFactory;
 
     @Override
     public void onEnable() {
@@ -29,9 +25,7 @@ public final class MineVote extends JavaPlugin
         this.registerListener();
         this.registerCommand();
         InventoryManager.register(this);
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new MineVotePapiExpansion().register();
-        }
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {new MineVotePapiExpansion().register();}
     }
 
     private void registerMotd()
@@ -57,13 +51,13 @@ public final class MineVote extends JavaPlugin
 
     public void registerCommand()
     {
-        commandManager = new PaperCommandManager(this);
+        PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.registerCommand(new MainCommand());
     }
 
     public void connectDatabase()
     {
-        sqLite = new SQLite();
+        SQLite sqLite = new SQLite();
         sqLite.connectDatabase();
         sqLite.ensureTableExists();
     }
