@@ -1,0 +1,41 @@
+shop-gui:
+  items:
+    item1:
+      type: "item"
+      material: "IRON_SWORD"
+      name: "&6Iron sword"
+      lore:
+        - "&bUne epee des dieux"
+      enchant:
+        - "fire_aspect"
+      price: 50
+    item2:
+      type: "item"
+      material: "DIAMOND_SWORD"
+      name: "&bDiamond sword"
+      lore:
+        - "&bUne epee des dieux"
+      enchant:
+        - "fire_aspect"
+      price: 50
+  shulkers:
+    shulker1:
+      name: "&6Shulker épée en diamant"
+      type: "shulker"
+      material: "SHULKER_BOX"
+      lore:
+        - "&7Un shulker contenant une épée magique."
+        - "&7Ouvrez-le pour découvrir son pouvoir !"
+      price: 500.0
+      enchant:
+        - "SHARPNESS"
+        - "UNBREAKING"
+      item_inside:
+        name: "&bÉpée en diamant enchantée"
+        material: "DIAMOND_SWORD"
+        lore:
+          - "&7Une épée puissante, parfaite pour vos combats !"
+          - "&7Enchantée avec &5Sharpness V &7et &6Unbreaking III"
+        enchant:
+          - "SHARPNESS:5"
+          - "UNBREAKING:3"

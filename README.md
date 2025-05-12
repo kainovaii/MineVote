@@ -9,7 +9,6 @@
 </p>
 
 ### TODO
-  - ❌ Vote shop
   - ❌ Customizable GUI
 
 ## 📥 Installation

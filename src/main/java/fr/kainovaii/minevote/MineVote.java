@@ -18,7 +18,6 @@ public final class MineVote extends JavaPlugin
     private Loader loader;
     public ConfigManager configManager;
 
-
     @Override
     public void onEnable()
     {

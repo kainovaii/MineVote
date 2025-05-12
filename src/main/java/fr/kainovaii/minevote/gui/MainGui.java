@@ -56,6 +56,13 @@ public class MainGui extends InventoryAPI {
 
         setItem(13, new ItemBuilder(Material.CHEST).name("§6Vote Shop §8(§cA venir§8)").build(), event -> {
             if (event.isLeftClick()) {
+                player.closeInventory();
+                new ShopGui(player).open(player);
+            }
+        });
+
+        setItem(15, new ItemBuilder(Material.PAPER).name("§6").build(), event -> {
+            if (event.isLeftClick()) {
                 //player.closeInventory();
                 //new ShopGui(player).open(player);
             }

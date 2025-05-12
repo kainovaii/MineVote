@@ -17,13 +17,15 @@ public class ConfigManager {
     private final File messageFile;
     private final File shopFile;
 
-    public ConfigManager(JavaPlugin plugin) {
+    public ConfigManager(JavaPlugin plugin)
+    {
         this.plugin = plugin;
         this.messageFile = new File(plugin.getDataFolder(), "message.yml");
         this.shopFile = new File(plugin.getDataFolder(), "shop.yml");
     }
 
-    public void loadConfigs() {
+    public void loadConfigs()
+    {
         if (!plugin.getDataFolder().exists()) {
             plugin.getDataFolder().mkdirs();
         }
@@ -59,12 +61,14 @@ public class ConfigManager {
         return plugin.getConfig().getStringList(path);
     }
 
-    public List<Object> getConfigList(String path) {
+    public List<Object> getConfigList(String path)
+    {
         List<?> list = plugin.getConfig().getList(path);
         return list != null ? new ArrayList<>(list) : new ArrayList<>();
     }
 
-    public void setConfig(String path, Object value) {
+    public void setConfig(String path, Object value)
+    {
         plugin.getConfig().set(path, value);
         plugin.saveConfig();
     }
@@ -73,7 +77,8 @@ public class ConfigManager {
         plugin.reloadConfig();
     }
 
-    public String getMessage(String path) {
+    public String getMessage(String path)
+    {
         if (message.contains(path)) {
             return message.getString(path).replace("&", "§");
         } else {
@@ -86,11 +91,8 @@ public class ConfigManager {
         return this.message;
     }
 
-    public FileConfiguration getShop() {
-        return this.shop;
-    }
-
-    public void saveConfigs() {
+    public void saveConfigs()
+    {
         try {
             plugin.saveConfig();
             message.save(messageFile);
@@ -100,7 +102,8 @@ public class ConfigManager {
         }
     }
 
-    public Map<String, ConfigurationSection> getProviders() {
+    public Map<String, ConfigurationSection> getProviders()
+    {
         Map<String, ConfigurationSection> providersMap = new HashMap<>();
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("providers");
 
@@ -115,7 +118,41 @@ public class ConfigManager {
         return providersMap;
     }
 
-    public void reloadConfigs() {
+    public Map<String, ConfigurationSection> getShopItems() {
+        Map<String, ConfigurationSection> itemsMap = new HashMap<>();
+
+        // Items
+        ConfigurationSection itemsSection = shop.getConfigurationSection("shop-gui.items");
+        if (itemsSection != null) {
+            for (String key : itemsSection.getKeys(false)) {
+                ConfigurationSection itemSection = itemsSection.getConfigurationSection(key);
+                if (itemSection != null) {
+                    plugin.getLogger().info("Chargement de l'item: " + key);
+                    itemsMap.put(key, itemSection);
+                }
+            }
+        } else {
+            plugin.getLogger().warning("shop-gui.items introuvable dans shop.yml");
+        }
+
+        // Shulkers
+        ConfigurationSection shulkersSection = shop.getConfigurationSection("shop-gui.shulkers");
+        if (shulkersSection != null) {
+            for (String key : shulkersSection.getKeys(false)) {
+                ConfigurationSection shulkerSection = shulkersSection.getConfigurationSection(key);
+                if (shulkerSection != null) {
+                    itemsMap.put(key, shulkerSection);
+                }
+            }
+        } else {
+            plugin.getLogger().warning("shop-gui.shulkers introuvable dans shop.yml");
+        }
+
+        return itemsMap;
+    }
+
+    public void reloadConfigs()
+    {
         plugin.reloadConfig();
         this.message = YamlConfiguration.loadConfiguration(messageFile);
         this.shop = YamlConfiguration.loadConfiguration(shopFile);
