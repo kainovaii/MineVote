@@ -19,10 +19,7 @@ public class MainCommand extends BaseCommand
 {
     private ConfigManager configManager;
 
-    public MainCommand ()
-    {
-        this.configManager = MineVote.getInstance().getConfigManager();
-    }
+    public MainCommand () {this.configManager = MineVote.getInstance().getConfigManager(); }
 
     @Default
     public void index(CommandSender sender) {

@@ -8,20 +8,22 @@ import java.io.File;
 public class SQLite
 {
     private SQLite instance;
+    private MineVote mineVote;
 
     public SQLite() {
         instance = this;
+        this.mineVote =  MineVote.getInstance();
     }
 
     public void connectDatabase() {
         try {
-            File dbFile = new File(MineVote.getInstance().getDataFolder(), "data.db");
-            MineVote.getInstance().getDataFolder().mkdirs();
+            File dbFile = new File(mineVote.getDataFolder(), "data.db");
+            mineVote.getDataFolder().mkdirs();
             String url = "jdbc:sqlite:" + dbFile.getAbsolutePath();
             Base.open("org.sqlite.JDBC", url, "", "");
-            MineVote.getInstance().getLogger().info("Connexion SQLite réussie !");
+            mineVote.getLogger().info("Connexion SQLite réussie !");
         } catch (Exception e) {
-            MineVote.getInstance().getLogger().severe("Erreur de connexion SQLite: " + e.getMessage());
+            mineVote.getLogger().severe("Erreur de connexion SQLite: " + e.getMessage());
         }
     }
 

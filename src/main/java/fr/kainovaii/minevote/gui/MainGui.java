@@ -99,7 +99,6 @@ public class MainGui extends InventoryAPI {
         ItemStack skull = new ItemBuilder(Material.PLAYER_HEAD)
                 .name("§6" + player.getName())
                 .addLore(
-                "§8§l→ §7Balance: §b{bank}$".replace("{bank}", String.valueOf(bank)),
                         "§8§l→ §7Vote: §b{voting}".replace("{voting}", String.valueOf(voting))
                 ).build();
 

@@ -38,7 +38,6 @@ public final class MineVote extends JavaPlugin
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new MineVotePapiExpansion().register();
         }
-        getLogger().info("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
     }
 
     private void registerMotd()
@@ -93,7 +92,5 @@ public final class MineVote extends JavaPlugin
     }
 
     @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
+    public void onDisable() {}
 }

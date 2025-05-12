@@ -7,56 +7,77 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ConfigManager {
 
-    private JavaPlugin plugin;
-    private FileConfiguration config;
+    private final JavaPlugin plugin;
     private FileConfiguration message;
     private FileConfiguration shop;
-    private File configFile;
-    private File messageFile;
-    private File shopFile;
-    
+    private final File messageFile;
+    private final File shopFile;
+
     public ConfigManager(JavaPlugin plugin) {
         this.plugin = plugin;
-        this.configFile = new File(plugin.getDataFolder(), "config.yml");
         this.messageFile = new File(plugin.getDataFolder(), "message.yml");
         this.shopFile = new File(plugin.getDataFolder(), "shop.yml");
     }
 
     public void loadConfigs() {
-        if (!configFile.exists()) {
+        // Création des fichiers manquants
+        if (!plugin.getDataFolder().exists()) {
+            plugin.getDataFolder().mkdirs();
+        }
+
+        if (!new File(plugin.getDataFolder(), "config.yml").exists()) {
             plugin.saveResource("config.yml", false);
             plugin.getLogger().info("Le fichier config.yml a été copié.");
         }
+
         if (!messageFile.exists()) {
             plugin.saveResource("message.yml", false);
             plugin.getLogger().info("Le fichier message.yml a été copié.");
         }
+
         if (!shopFile.exists()) {
             plugin.saveResource("shop.yml", false);
             plugin.getLogger().info("Le fichier shop.yml a été copié.");
         }
 
-        this.config = YamlConfiguration.loadConfiguration(configFile);
+        // Chargement des fichiers
         this.message = YamlConfiguration.loadConfiguration(messageFile);
         this.shop = YamlConfiguration.loadConfiguration(shopFile);
     }
 
+    // ----------- Accès à config.yml via plugin -----------
+
     public Object getConfig(String path) {
-        return config.get(path);
+        return plugin.getConfig().get(path);
+    }
+
+    public String getConfigString(String path) {
+        return plugin.getConfig().getString(path);
+    }
+
+    public List<String> getConfigStringList(String path) {
+        return plugin.getConfig().getStringList(path);
+    }
+
+    public List<Object> getConfigList(String path) {
+        List<?> list = plugin.getConfig().getList(path);
+        return list != null ? new ArrayList<>(list) : new ArrayList<>();
     }
 
     public void setConfig(String path, Object value) {
-        config.set(path, value);
-        saveConfig();
+        plugin.getConfig().set(path, value);
+        plugin.saveConfig();
     }
+
+    public void reloadConfig() {
+        plugin.reloadConfig();
+    }
+
+    // ----------- Messages -----------
 
     public String getMessage(String path) {
         if (message.contains(path)) {
@@ -67,25 +88,33 @@ public class ConfigManager {
         }
     }
 
-    public List<Object> getConfigList(String path) {
-        List<?> rawList = config.getList(path);
-        if (rawList == null) return new ArrayList<>();
-        return new ArrayList<>(rawList);
+    public FileConfiguration getMessages() {
+        return this.message;
     }
 
-    public void saveConfig() {
+    // ----------- Shop -----------
+
+    public FileConfiguration getShop() {
+        return this.shop;
+    }
+
+    // ----------- Sauvegarde -----------
+
+    public void saveConfigs() {
         try {
-            config.save(configFile);
+            plugin.saveConfig();
             message.save(messageFile);
             shop.save(shopFile);
         } catch (IOException e) {
-            plugin.getLogger().severe("Impossible de sauvegarder le fichier config.yml");
+            plugin.getLogger().severe("Erreur lors de la sauvegarde des fichiers de configuration : " + e.getMessage());
         }
     }
 
+    // ----------- Fournisseurs -----------
+
     public Map<String, ConfigurationSection> getProviders() {
         Map<String, ConfigurationSection> providersMap = new HashMap<>();
-        ConfigurationSection section = config.getConfigurationSection("providers");
+        ConfigurationSection section = plugin.getConfig().getConfigurationSection("providers");
 
         if (section != null) {
             for (String key : section.getKeys(false)) {
@@ -95,19 +124,14 @@ public class ConfigManager {
                 }
             }
         }
+
         return providersMap;
     }
 
     public void reloadConfigs() {
-        loadConfigs();
         plugin.reloadConfig();
+        this.message = YamlConfiguration.loadConfiguration(messageFile);
+        this.shop = YamlConfiguration.loadConfiguration(shopFile);
     }
 
-    public FileConfiguration getConfig() {
-        return this.config;
-    }
-
-    public FileConfiguration getMessages() {
-        return this.message;
-    }
 }

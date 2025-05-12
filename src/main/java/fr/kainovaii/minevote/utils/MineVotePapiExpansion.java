@@ -2,32 +2,35 @@ package fr.kainovaii.minevote.utils;
 
 
 import fr.kainovaii.minevote.MineVote;
+import fr.kainovaii.minevote.config.ConfigManager;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
 public class MineVotePapiExpansion  extends PlaceholderExpansion
 {
-    private int voteCount;
-    private int votebjective;
+    private ConfigManager configManager;
 
     public MineVotePapiExpansion()
     {
-        voteCount = MineVote.getInstance().getConfig().getInt("voteCount");
-        votebjective = MineVote.getInstance().getConfig().getInt("voteMax");
+        configManager = MineVote.getInstance().getConfigManager();
     }
 
     @Override
-    public String onRequest(OfflinePlayer player, String identifier)
-    {
-        if(identifier.equals("counter")){
+    public String onRequest(OfflinePlayer player, String identifier) {
+        if (identifier.equals("counter")) {
+            int voteCount = (int) configManager.getConfig("voteCounter");
             return String.valueOf(voteCount);
         }
-        if(identifier.equals("objective")){
-            return String.valueOf(votebjective);
+
+        if (identifier.equals("objective")) {
+            int voteObjective = (int) configManager.getConfig("voteObjective");
+            return String.valueOf(voteObjective);
         }
+
         return null;
     }
+
     @Override
     public @NotNull String getIdentifier()
     {
