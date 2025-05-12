@@ -2,6 +2,7 @@ package fr.kainovaii.minevote.command;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
 import fr.kainovaii.minevote.MineVote;
@@ -28,9 +29,9 @@ public class MainCommand extends BaseCommand
     }
 
     @Subcommand("reload")
+    @CommandPermission("minevote.reload")
     public void reload(CommandSender sender) {
         Player player = (Player) sender;
-
         configManager.reloadConfigs();
         player.sendMessage(Prefix.BASE.get() + "the config has been reloaded");
     }
