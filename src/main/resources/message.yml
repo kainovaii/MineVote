@@ -1,5 +1,5 @@
 messages:
   welcome_unregistered: "Bienvenue ! Tu as été ajouté à la base"
-  welcome_registered: "Bienvenue §b{player}"
-  player_voted:  "§b{player} §fa voter ! §b{vote_counter}/{vote_objective}"
-  start_boost: "§b{player} §fa voter ! §fBoost actif"
+  welcome_registered: "Bienvenue &b{player}"
+  player_voted:  "&b{player} &fa voter ! &b{vote_counter}/{vote_objective}"
+  start_boost: "&b{player} &fa voter ! &fBoost &aactif"

@@ -1,17 +1,17 @@
 prefix: "&7[&6MineVote&7] &f"
-website:
-  enable: false
-  host: 127.0.0.1
 voteCounter: 0
 voteObjective: 5
+
+# Vote site GUI items
 providers:
   serveur-prive:
       url: 'https://serveur-prive.net/minecraft/monserveur'
-      token: '5jChWhii3oSOcZUyvTy1a2KWSCBWLJFj8EqI'
 
+# Player vote event (command)
 rewards:
   - 'give {player} minecraft:diamond 1'
   - 'aach add 1 Custom.votes {player}'
 
+# Boost start events (command)
 boost:
   - 'jobs boost 2 86400'

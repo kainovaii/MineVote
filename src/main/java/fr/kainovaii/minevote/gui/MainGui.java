@@ -54,10 +54,10 @@ public class MainGui extends InventoryAPI {
             }
         });
 
-        setItem(13, new ItemBuilder(Material.CHEST).name("§6Vote Shop").build(), event -> {
+        setItem(13, new ItemBuilder(Material.CHEST).name("§6Vote Shop §8(§cA venir§8)").build(), event -> {
             if (event.isLeftClick()) {
-                player.closeInventory();
-                new ShopGui(player).open(player);
+                //player.closeInventory();
+                //new ShopGui(player).open(player);
             }
         });
     }
@@ -94,8 +94,6 @@ public class MainGui extends InventoryAPI {
     public static ItemStack playerHead(Player player)
     {
         int voting = VoterRepository.getVoting(player.getName());
-        double bank = VoterRepository.getBank(player.getName());
-
         ItemStack skull = new ItemBuilder(Material.PLAYER_HEAD)
                 .name("§6" + player.getName())
                 .addLore(
@@ -116,15 +114,17 @@ public class MainGui extends InventoryAPI {
         int voteObjective = (int) configManager.getConfig("voteObjective");
 
         ItemStack compass = new ItemBuilder(Material.COMPASS)
-                .name("§6Vote status")
+                .name("§6Etat du boost")
                 .addLore(
-                        "§8§l→ §b{voteCounter}/{voteObjective}".replace("{voteCounter}", String.valueOf(voteCounter)).replace("{voteObjective}", String.valueOf(voteObjective))
+                        "§8§l→ §b{voteCounter}/{voteObjective}"
+                                .replace("{voteCounter}", String.valueOf(voteCounter))
+                                .replace("{voteObjective}", String.valueOf(voteObjective))
                 ).build();
-
         return compass;
     }
 
-    public void openWebUrl(String url) {
+    public void openWebUrl(String url)
+    {
         try {
             if (Desktop.isDesktopSupported()) {
                 Desktop desktop = Desktop.getDesktop();

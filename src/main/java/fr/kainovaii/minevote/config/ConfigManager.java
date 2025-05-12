@@ -24,7 +24,6 @@ public class ConfigManager {
     }
 
     public void loadConfigs() {
-        // Création des fichiers manquants
         if (!plugin.getDataFolder().exists()) {
             plugin.getDataFolder().mkdirs();
         }
@@ -44,12 +43,9 @@ public class ConfigManager {
             plugin.getLogger().info("Le fichier shop.yml a été copié.");
         }
 
-        // Chargement des fichiers
         this.message = YamlConfiguration.loadConfiguration(messageFile);
         this.shop = YamlConfiguration.loadConfiguration(shopFile);
     }
-
-    // ----------- Accès à config.yml via plugin -----------
 
     public Object getConfig(String path) {
         return plugin.getConfig().get(path);
@@ -77,11 +73,9 @@ public class ConfigManager {
         plugin.reloadConfig();
     }
 
-    // ----------- Messages -----------
-
     public String getMessage(String path) {
         if (message.contains(path)) {
-            return message.getString(path);
+            return message.getString(path).replace("&", "§");
         } else {
             plugin.getLogger().warning("La clé '" + path + "' n'a pas été trouvée dans message.yml.");
             return "Message non trouvé.";
@@ -92,13 +86,9 @@ public class ConfigManager {
         return this.message;
     }
 
-    // ----------- Shop -----------
-
     public FileConfiguration getShop() {
         return this.shop;
     }
-
-    // ----------- Sauvegarde -----------
 
     public void saveConfigs() {
         try {
@@ -109,8 +99,6 @@ public class ConfigManager {
             plugin.getLogger().severe("Erreur lors de la sauvegarde des fichiers de configuration : " + e.getMessage());
         }
     }
-
-    // ----------- Fournisseurs -----------
 
     public Map<String, ConfigurationSection> getProviders() {
         Map<String, ConfigurationSection> providersMap = new HashMap<>();
@@ -124,7 +112,6 @@ public class ConfigManager {
                 }
             }
         }
-
         return providersMap;
     }
 
