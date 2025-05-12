@@ -42,7 +42,9 @@ public class VotifierListener implements Listener
     public void playerIncrementVote(String playerName)
     {
         int voting = VoterRepository.getVoting(playerName);
+        int bank = VoterRepository.getBank(playerName);
         VoterRepository.updateVoteCount(playerName, voting + 1);
+        VoterRepository.updateBank(playerName, bank + 1);
     }
 
     public void voteIncrement(String playerName)

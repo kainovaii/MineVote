@@ -2,6 +2,8 @@ package fr.kainovaii.minevote.gui;
 
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
+import fr.kainovaii.minevote.domain.voter.VoterRepository;
+import fr.kainovaii.minevote.utils.Prefix;
 import fr.kainovaii.minevote.utils.gui.InventoryAPI;
 import fr.kainovaii.minevote.utils.gui.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -184,13 +186,33 @@ public class ShopGui extends InventoryAPI {
 
             setItem(slot, displayItem, event -> {
                 if (event.getWhoClicked() instanceof Player player) {
-                    player.getInventory().addItem(itemToGive);
-                    player.sendMessage("§aVous avez reçu l'objet: §f" + itemName);
+                    if (playerBuyItem(player, (int) price))
+                    {
+                        player.getInventory().addItem(itemToGive);
+                        player.sendMessage(Prefix.BASE.get() + configManager.getMessage("messages.cshop_buyed")
+                                .replace("&", "§")
+                                .replace("{item}", itemName)
+                        );
+                    }
                     player.closeInventory();
                 }
             });
 
             slot++;
+        }
+    }
+
+    public boolean playerBuyItem(Player player, int price)
+    {
+        int bank = VoterRepository.getBank(player.getName());
+
+        if (bank >= price)
+        {
+            VoterRepository.updateBank(player.getName(), bank - price);
+            return true;
+        } else {
+            player.sendMessage(Prefix.BASE.get() + configManager.getMessage("messages.shop_no_money").replace("&", "§"));
+            return false;
         }
     }
 

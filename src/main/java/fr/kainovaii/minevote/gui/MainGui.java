@@ -101,10 +101,13 @@ public class MainGui extends InventoryAPI {
     public static ItemStack playerHead(Player player)
     {
         int voting = VoterRepository.getVoting(player.getName());
+        int bank = VoterRepository.getBank(player.getName());
+
         ItemStack skull = new ItemBuilder(Material.PLAYER_HEAD)
                 .name("§6" + player.getName())
                 .addLore(
-                        "§8§l→ §7Vote: §b{voting}".replace("{voting}", String.valueOf(voting))
+                        "§8§l→ §7Vote: §b{voting}".replace("{voting}", String.valueOf(voting)),
+                        "§8§l→ §7Vote: §b{bank}".replace("{bank}", String.valueOf(bank))
                 ).build();
 
         SkullMeta meta = (SkullMeta) skull.getItemMeta();

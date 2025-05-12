@@ -16,10 +16,10 @@ public class VoterRepository
         MineVote.getInstance().getLogger().info("Inséré : " + name);
     }
 
-    public static double getBank(String name)
+    public static int getBank(String name)
     {
         Voter player = Voter.findFirst("name = ?", name);
-        return player != null ? player.getDouble("bank") : null;
+        return player != null ? player.getInteger("bank") : null;
     }
 
     public static int getVoting(String name)
@@ -32,6 +32,13 @@ public class VoterRepository
     {
         Voter player = Voter.findFirst("name = ?", name);
         player.set("voting", count);
+        player.saveIt();
+    }
+
+    public static void updateBank(String name, int solde)
+    {
+        Voter player = Voter.findFirst("name = ?", name);
+        player.set("bank", solde);
         player.saveIt();
     }
 }
