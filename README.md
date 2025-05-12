@@ -14,4 +14,5 @@
   - ✔️ Config file
   - ✔️ Site list
   - ❌ Vote shop
+  - ❌ Customizable GUI
   - ⏳ Refacto du code et optimisation
