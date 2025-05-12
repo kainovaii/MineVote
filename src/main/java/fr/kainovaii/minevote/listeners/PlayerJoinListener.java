@@ -1,4 +1,4 @@
-package fr.kainovaii.minevote.integration.listeners;
+package fr.kainovaii.minevote.listeners;
 
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;

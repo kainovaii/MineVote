@@ -1,10 +1,9 @@
-package fr.kainovaii.minevote.integration.listeners;
+package fr.kainovaii.minevote.listeners;
 
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
-import fr.kainovaii.minevote.domain.voter.Voter;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.utils.Prefix;
 import org.bukkit.Bukkit;

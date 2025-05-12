@@ -1,16 +1,13 @@
 package fr.kainovaii.minevote;
 
 import co.aikar.commands.PaperCommandManager;
-import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChainFactory;
 import fr.kainovaii.minevote.command.MainCommand;
 import fr.kainovaii.minevote.config.ConfigManager;
-import fr.kainovaii.minevote.integration.listeners.VotifierListener;
-import fr.kainovaii.minevote.integration.tasks.VoterTask;
-import fr.kainovaii.minevote.utils.ApiClient;
+import fr.kainovaii.minevote.listeners.VotifierListener;
 import fr.kainovaii.minevote.utils.MineVotePapiExpansion;
 import fr.kainovaii.minevote.utils.gui.InventoryManager;
-import fr.kainovaii.minevote.integration.listeners.PlayerJoinListener;
+import fr.kainovaii.minevote.listeners.PlayerJoinListener;
 import fr.kainovaii.minevote.utils.SQLite;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,10 +28,7 @@ public final class MineVote extends JavaPlugin
         this.connectDatabase();
         this.registerListener();
         this.registerCommand();
-        this.registerTask();
-        ApiClient.init();
         InventoryManager.register(this);
-
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new MineVotePapiExpansion().register();
         }
@@ -53,14 +47,6 @@ public final class MineVote extends JavaPlugin
     {
         configManager = new ConfigManager(this);
         configManager.loadConfigs();
-    }
-
-    public void registerTask()
-    {
-        this.taskChainFactory = BukkitTaskChainFactory.create(this);
-        if (getConfig().getBoolean("website.enable") ) {
-            new VoterTask(this, taskChainFactory).startRepeatingTask();
-        }
     }
 
     private void registerListener()
