@@ -9,15 +9,6 @@ shop-gui:
       enchant:
         - "fire_aspect"
       price: 50
-    item2:
-      type: "item"
-      material: "DIAMOND_SWORD"
-      name: "&bDiamond sword"
-      lore:
-        - "&bUne epee des dieux"
-      enchant:
-        - "fire_aspect"
-      price: 50
   shulkers:
     shulker1:
       name: "&6Shulker épée en diamant"

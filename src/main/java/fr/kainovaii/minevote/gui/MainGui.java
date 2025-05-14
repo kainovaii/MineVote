@@ -36,8 +36,11 @@ public class MainGui extends InventoryAPI {
     }
 
     private void setupMenu() {
+        String startMaterial = configManager.getConfig("customize-gui.borderMaterial").toString();
+        Material borderMaterial = Material.matchMaterial(startMaterial);
+
         for (int slot : Arrays.asList(1, 2, 3, 5, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 26)) {
-            setItem(slot, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).name("§f").build());
+            setItem(slot, new ItemBuilder(borderMaterial).name("§f").build());
         }
         setItem(0, this.voteCompass());
         setItem(4, playerHead(player));
@@ -47,14 +50,14 @@ public class MainGui extends InventoryAPI {
 
     public void GuiIndex()
     {
-        setItem(11, new ItemBuilder(Material.BOOK).name("§6Vote site").build(), event -> {
+        setItem(11, new ItemBuilder(Material.BOOK).name(configManager.getMessage("gui.items.site")).build(), event -> {
             if (event.isLeftClick()) {
                 player.closeInventory();
                 new MainGui(player, 1).open(player);
             }
         });
 
-        setItem(13, new ItemBuilder(Material.CHEST).name("§6Vote Shop §8(§cA venir§8)").build(), event -> {
+        setItem(13, new ItemBuilder(Material.CHEST).name(configManager.getMessage("gui.items.shop")).build(), event -> {
             if (event.isLeftClick()) {
                 player.closeInventory();
                 new ShopGui(player).open(player);
@@ -90,7 +93,7 @@ public class MainGui extends InventoryAPI {
             slot++;
         }
 
-        setItem(26, new ItemBuilder(Material.ARROW).name("§cRetour").build(),event -> {
+        setItem(26, new ItemBuilder(Material.ARROW).name(configManager.getMessage("gui.arrows.back")).build(),event -> {
             if (event.isLeftClick()) {
                 player.closeInventory();
                 new MainGui(player).open(player);
@@ -124,9 +127,8 @@ public class MainGui extends InventoryAPI {
         int voteObjective = (int) configManager.getConfig("voteObjective");
 
         ItemStack compass = new ItemBuilder(Material.COMPASS)
-                .name("§6Etat du boost")
-                .addLore(
-                        "§8§l→ §b{voteCounter}/{voteObjective}"
+                .name(configManager.getMessage("gui.compass.name"))
+                .addLore(configManager.getMessage("gui.compass.text")
                                 .replace("{voteCounter}", String.valueOf(voteCounter))
                                 .replace("{voteObjective}", String.valueOf(voteObjective))
                 ).build();
@@ -140,8 +142,6 @@ public class MainGui extends InventoryAPI {
                 Desktop desktop = Desktop.getDesktop();
                 URI uri = new URI(url);
                 desktop.browse(uri);
-            } else {
-                System.out.println("L'ouverture d'URL n'est pas supportée sur cette plateforme.");
             }
         } catch (Exception e) {
             e.printStackTrace();

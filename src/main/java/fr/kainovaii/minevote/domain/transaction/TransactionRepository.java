@@ -4,7 +4,7 @@ import fr.kainovaii.minevote.MineVote;
 
 public class TransactionRepository
 {
-    private Transaction transaction;
+    private final Transaction transaction;
 
     public TransactionRepository() {
         transaction = new Transaction();

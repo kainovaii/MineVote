@@ -1,5 +1,6 @@
 package fr.kainovaii.minevote.gui;
 
+import fr.kainovaii.minevote.events.PlayerBuyItemEvent;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
@@ -8,7 +9,6 @@ import fr.kainovaii.minevote.utils.gui.InventoryAPI;
 import fr.kainovaii.minevote.utils.gui.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
@@ -17,7 +17,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,8 +42,11 @@ public class ShopGui extends InventoryAPI {
     }
 
     private void setupMenu() {
+        String startMaterial = configManager.getConfig("customize-gui.borderMaterial").toString();
+        Material borderMaterial = Material.matchMaterial(startMaterial);
+
         for (int slot : Arrays.asList(0, 1, 2, 3, 5, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25)) {
-            setItem(slot, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).name("§f").build());
+            setItem(slot, new ItemBuilder(borderMaterial).name("§f").build());
         }
         setupItems();
         setItem(4, MainGui.playerHead(player));
@@ -189,7 +191,7 @@ public class ShopGui extends InventoryAPI {
                     if (playerBuyItem(player, (int) price))
                     {
                         player.getInventory().addItem(itemToGive);
-                        player.sendMessage(Prefix.BASE.get() + configManager.getMessage("messages.cshop_buyed")
+                        player.sendMessage(Prefix.BASE.get() + configManager.getMessage("messages.cwshop_buyed")
                                 .replace("&", "§")
                                 .replace("{item}", itemName)
                         );
@@ -204,6 +206,8 @@ public class ShopGui extends InventoryAPI {
 
     public boolean playerBuyItem(Player player, int price)
     {
+        PlayerBuyItemEvent buyEvent = new PlayerBuyItemEvent(player, "0x40f545dQ545", price);
+        Bukkit.getPluginManager().callEvent(buyEvent);
         int bank = VoterRepository.getBank(player.getName());
 
         if (bank >= price)

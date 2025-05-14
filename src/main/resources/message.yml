@@ -5,3 +5,14 @@ messages:
   start_boost: "&b{player} &fa voter ! &fBoost &aactif"
   shop_buyed: "vous avez reçu l'objet: &b{item}"
   shop_no_money: "vous n'avez pas assez de point pour acheter ceci"
+
+gui:
+  compass:
+    name: '&6Etat du boost'
+    text: '&8&l→ &b{voteCounter}/{voteObjective}'
+  arrows:
+    next: "&cSuivant"
+    back: "&cRetour"
+  items:
+    site: "&6Vote site"
+    shop: "&6Vote shop"

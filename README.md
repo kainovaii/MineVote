@@ -4,12 +4,14 @@
     <br />
 </p>
 <p align="center">
-    <img src="https://img.shields.io/badge/Version-0.1-orange.svg" />
+    <img src="https://img.shields.io/badge/Version-0.2-orange.svg" />
     <img style="margin-left: 10px;" src="https://img.shields.io/badge/License-MIT-orange.svg" />
 </p>
 
 ### TODO
-  - ❌ Customizable GUI
+  - ❌ Customizable GUI (Glass color, size, text, currency)
+  - ❌ Command /vote shop
+  - ❌ Ranking
 
 ## 📥 Installation
 

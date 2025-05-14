@@ -12,6 +12,9 @@ rewards:
   - 'give {player} minecraft:diamond 1'
   - 'aach add 1 Custom.votes {player}'
 
-# Boost start events (command)
+# Boost start event (command)
 boost:
   - 'jobs boost 2 86400'
+
+customize-gui:
+  borderMaterial: 'BLACK_STAINED_GLASS_PANE'

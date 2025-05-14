@@ -8,6 +8,7 @@ import co.aikar.commands.annotation.Subcommand;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.gui.MainGui;
+import fr.kainovaii.minevote.gui.ShopGui;
 import fr.kainovaii.minevote.utils.Prefix;
 import jdk.jfr.Description;
 import org.bukkit.command.CommandSender;
@@ -25,6 +26,12 @@ public class MainCommand extends BaseCommand
     public void index(CommandSender sender) {
         Player player = (Player) sender;
         new MainGui(player).open(player);
+    }
+
+    @Subcommand("shop")
+    public void shop(CommandSender sender) {
+        Player player = (Player) sender;
+        new ShopGui(player).open(player);
     }
 
     @Subcommand("reload")
