@@ -1,10 +1,13 @@
 package fr.kainovaii.minevote.domain.voter;
 
 import fr.kainovaii.minevote.MineVote;
+import org.javalite.activejdbc.LazyList;
+import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.Model;
 
 public class VoterRepository
 {
-    private Voter voter;
+    private final Voter voter;
 
     public VoterRepository() {
         voter = new Voter();
@@ -14,6 +17,11 @@ public class VoterRepository
     {
         voter.set("uuid", uuid, "name", name, "voting", 0, "bank", 0).saveIt();
         MineVote.getInstance().getLogger().info("Inséré : " + name);
+    }
+
+    public static LazyList<Model> getVoters()
+    {
+        return Voter.findAll();
     }
 
     public static int getBank(String name)

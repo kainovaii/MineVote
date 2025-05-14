@@ -9,9 +9,9 @@
 </p>
 
 ### TODO
-  - ❌ Customizable GUI (Glass color, size, text, currency)
-  - ❌ Command /vote shop
-  - ❌ Ranking
+  - ⌛ Customizable GUI (Glass color, size, text, currency)
+  - ✔️ Command /vote shop
+  - ✔️ Ranking
 
 ## 📥 Installation
 

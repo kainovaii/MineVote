@@ -16,3 +16,4 @@ gui:
   items:
     site: "&6Vote site"
     shop: "&6Vote shop"
+    ranking: "&6Classement"
