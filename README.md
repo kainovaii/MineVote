@@ -16,24 +16,24 @@
 
 ## 📥 Installation
 
-1. **Télécharge** le fichier `MineVote.jar` (lien à ajouter).
-2. **Place** le fichier `.jar` dans le dossier `plugins/` de ton serveur Minecraft.
-3. **Assure-toi** que les plugins suivants sont aussi installés dans le dossier `plugins/` :
-    - `PlaceholderAPI`
-    - `NuVotifier`
-4. **Démarre** ou **redémarre** le serveur.
-5. Un dossier `MineVote/` sera généré avec le fichier de configuration.
+1. **Download** the `MineVote.jar` file (link to be added).
+2. **Place** the `.jar` file into your server’s `plugins/` folder.
+3. **Make sure** the following plugins are also installed in the `plugins/` folder:
+   - `PlaceholderAPI`
+   - `NuVotifier`
+4. **Start** or **restart** your server.
+5. A `MineVote/` folder will be generated with the configuration file.
 
-## ⚙️ Configuration de NuVotifier
+## ⚙️ NuVotifier Configuration
 
-Pour que les votes soient bien reçus par ton serveur, configure NuVotifier :
+To ensure that votes are properly received by your server, configure NuVotifier:
 
-1. Ouvre le fichier :  
+1. Open the file:  
    `plugins/NuVotifier/config.yml`
 
-2. Vérifie ou adapte les champs suivants :
+2. Check or adjust the following fields:
 
 ```yaml
 host: 0.0.0.0
 port: 8192
-token: "<généré automatiquement>"
+token: "<automatically generated>"

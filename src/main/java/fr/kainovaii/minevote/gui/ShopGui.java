@@ -4,6 +4,8 @@ import fr.kainovaii.minevote.events.PlayerBuyItemEvent;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
+import fr.kainovaii.minevote.gui.main.GuiUtils;
+import fr.kainovaii.minevote.gui.main.MainGui;
 import fr.kainovaii.minevote.utils.Prefix;
 import fr.kainovaii.minevote.utils.gui.InventoryAPI;
 import fr.kainovaii.minevote.utils.gui.ItemBuilder;
@@ -49,7 +51,7 @@ public class ShopGui extends InventoryAPI {
             setItem(slot, new ItemBuilder(borderMaterial).name("§f").build());
         }
         setupItems();
-        setItem(4, MainGui.playerHead(player));
+        setItem(4, GuiUtils.playerHead(player));
         setItem(26, new ItemBuilder(Material.ARROW).name("§cRetour").build(),event -> {
             if (event.isLeftClick()) {
                 player.closeInventory();
