@@ -15,7 +15,9 @@ public class VoterRepository
 
     public void create(String uuid, String name)
     {
-        voter.set("uuid", uuid, "name", name, "voting", 0, "bank", 0).saveIt();
+        Voter voter = new Voter();
+        voter.set("uuid", uuid, "name", name, "voting", 0, "bank", 0);
+        voter.saveIt();
         MineVote.getInstance().getLogger().info("Inséré : " + name);
     }
 
@@ -26,27 +28,48 @@ public class VoterRepository
 
     public static int getBank(String name)
     {
-        Voter player = Voter.findFirst("name = ?", name);
-        return player != null ? player.getInteger("bank") : 0;
+        if (VoterRepository.voterExist(name)) {
+            Voter player = Voter.findFirst("name = ?", name);
+            return player != null ? player.getInteger("bank") : 0;
+        }
+        return 0;
     }
 
-    public static int getVoting(String name) {
-        Voter player = Voter.findFirst("name = ?", name);
-        return player != null ? player.getInteger("voting") : 0;
+    public static int getVoting(String name)
+    {
+        if (VoterRepository.voterExist(name)) {
+            Voter player = Voter.findFirst("name = ?", name);
+            return player != null ? player.getInteger("voting") : 0;
+        }
+        return 0;
     }
 
     public static void updateVoteCount(String name, int count)
     {
-        Voter player = Voter.findFirst("name = ?", name);
-        player.set("voting", count);
-        player.saveIt();
+        if (VoterRepository.voterExist(name)) {
+            Voter player = Voter.findFirst("name = ?", name);
+            player.set("voting", count);
+            player.saveIt();
+        }
     }
 
     public static void updateBank(String name, int solde)
     {
-        Voter player = Voter.findFirst("name = ?", name);
-        player.set("bank", solde);
-        player.saveIt();
+        if (VoterRepository.voterExist(name)) {
+            Voter player = Voter.findFirst("name = ?", name);
+            player.set("bank", solde);
+            player.saveIt();
+        }
+    }
+
+    public static void incrementVoter(String name, int value)
+    {
+        if (VoterRepository.voterExist(name)) {
+            Voter player = Voter.findFirst("name = ?", name);
+            player.set("bank",  player.getInteger("bank") + value);
+            player.set("voting", player.getInteger("bank") +  value);
+            player.saveIt();
+        }
     }
 
     public static boolean voterExist(String name)

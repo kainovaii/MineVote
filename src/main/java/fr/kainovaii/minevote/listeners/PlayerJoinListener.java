@@ -10,6 +10,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
 public class PlayerJoinListener implements Listener
 {
     private VoterRepository voterRepo;
@@ -25,8 +28,12 @@ public class PlayerJoinListener implements Listener
     public void onJoin(PlayerJoinEvent event)
     {
         Player player = event.getPlayer();
-        String uuid = player.getUniqueId().toString();
         String playerName = player.getName();
+
+        UUID offlineUUID = UUID.nameUUIDFromBytes(("OfflinePlayer:" + playerName).getBytes(StandardCharsets.UTF_8));
+        String uuid = offlineUUID.toString();
+
+        System.out.println("Player " + playerName + " joined with offline UUID: " + uuid);
 
         Voter data = Voter.findFirst("uuid = ?", uuid);
 

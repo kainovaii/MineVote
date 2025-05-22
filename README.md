@@ -13,6 +13,8 @@
   - ⌛ Ranking player
   - ⌛ Ranking multi page all voter
   - ⌛ Player has voted view
+  - ⌛ DiscordSRV support
+  - ⌛ Command give vote
 
 ## 📥 Installation
 
