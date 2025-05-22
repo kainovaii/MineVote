@@ -15,13 +15,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.javalite.activejdbc.LazyList;
 import org.javalite.activejdbc.Model;
-
-import java.awt.*;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.ChatColor;
 
 public class MainGui extends InventoryAPI {
 
@@ -93,8 +94,15 @@ public class MainGui extends InventoryAPI {
                         "§2➤§f Clic gauche pour ouvrir"
                     )
                     .build(), event -> {
-                openWebUrl(url);
-            });
+                        player.closeInventory();
+                        TextComponent message = new TextComponent(configManager.getMessage("messages.open_site_url"));
+                        TextComponent link = new TextComponent(url);
+                        link.setColor(net.md_5.bungee.api.ChatColor.AQUA);
+                        link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
+                        message.addExtra(link);
+
+                        player.spigot().sendMessage(message);
+                    });
             slot++;
         }
 
@@ -171,15 +179,16 @@ public class MainGui extends InventoryAPI {
 
     public void openWebUrl(String url)
     {
-        try {
-            if (Desktop.isDesktopSupported()) {
-                Desktop desktop = Desktop.getDesktop();
-                URI uri = new URI(url);
-                desktop.browse(uri);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        setItem(2, new ItemBuilder(Material.WRITABLE_BOOK).name("§bVoir ressource").lore("§7Clique pour ouvrir le lien.").build(), e -> {
+            player.closeInventory();
+            TextComponent message = new TextComponent("§aClique ici pour ouvrir le lien : ");
+            TextComponent link = new TextComponent(url);
+            link.setColor(net.md_5.bungee.api.ChatColor.AQUA);
+            link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
+            message.addExtra(link);
+
+            player.spigot().sendMessage(message);
+        });
     }
 
     public void arrowBack()

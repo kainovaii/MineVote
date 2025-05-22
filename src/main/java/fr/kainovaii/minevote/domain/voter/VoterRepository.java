@@ -27,13 +27,12 @@ public class VoterRepository
     public static int getBank(String name)
     {
         Voter player = Voter.findFirst("name = ?", name);
-        return player != null ? player.getInteger("bank") : null;
+        return player != null ? player.getInteger("bank") : 0;
     }
 
-    public static int getVoting(String name)
-    {
+    public static int getVoting(String name) {
         Voter player = Voter.findFirst("name = ?", name);
-        return player != null ? player.getInteger("voting") : null;
+        return player != null ? player.getInteger("voting") : 0;
     }
 
     public static void updateVoteCount(String name, int count)

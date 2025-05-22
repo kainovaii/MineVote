@@ -10,8 +10,8 @@
 
 ### TODO
   - ⌛ Customizable GUI (Glass color, size, text, currency)
-  - ✔️ Command /vote shop
-  - ✔️ Ranking
+  - ⌛ Ranking player
+  - ⌛ Ranking multi page all voter
 
 ## 📥 Installation
 

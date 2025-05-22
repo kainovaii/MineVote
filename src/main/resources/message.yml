@@ -5,6 +5,7 @@ messages:
   start_boost: "&b{player} &fa voter ! &fBoost &aactif"
   shop_buyed: "vous avez reçu l'objet: &b{item}"
   shop_no_money: "vous n'avez pas assez de point pour acheter ceci"
+  open_site_url: "&aClique ici pour ouvrir le lien : "
 
 gui:
   compass:

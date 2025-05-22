@@ -2,8 +2,8 @@
 
 read -p "⚡️ Enter type: " TYPE
 
-if [ $TYPE ]; then
-    if [ $TYPE == 'FIX' ]; then
+if [ "$TYPE" ]; then
+    if [ "$TYPE" = "FIX" ]; then
         read -p "⚡️ Enter text: " TEXT
         git add --all
         git commit -m "🛠️ Fix ($TEXT)"
@@ -11,7 +11,7 @@ if [ $TYPE ]; then
         echo "⚡️ Task complete"
     fi
 
-    if [ $TYPE == 'UPDATE' ]; then
+    if [ "$TYPE" = "UPDATE" ]; then
         read -p "⚡️ Enter text: " TEXT
         git add --all
         git commit -m "📦️ Update ($TEXT)"
@@ -19,7 +19,7 @@ if [ $TYPE ]; then
         echo "⚡️ Task complete"
     fi
 
-    if [ $TYPE == 'PROD' ]; then
+    if [ "$TYPE" = "PROD" ]; then
         read -p "⚡️ Enter text: " TEXT
         git add --all
         git commit -m "🌐 Production"
@@ -27,18 +27,19 @@ if [ $TYPE ]; then
         echo "⚡️ Task complete"
     fi
 
-    if [ $TYPE == 'INIT' ]; then
+    if [ "$TYPE" = "INIT" ]; then
         read -p "⚡️ Enter repositorie name: " NAME
         git init
         git add --all
         git commit -m "🚀 Init"
         git branch -M main
         git remote remove origin
-        git remote add origin $NAME
+        git remote add origin "$NAME"
         git push -u origin main
         echo "⚡️ Task complete"
     fi
-        if [ $TYPE == 'DEV' ]; then
+
+    if [ "$TYPE" = "DEV" ]; then
         read -p "⚡️ Enter text: " TEXT
         git add --all
         git commit -m "👨‍💻 Dev ($TEXT)"
@@ -49,3 +50,4 @@ else
     echo "⚡️ Please enter deploy type"
     ./deploy.sh
 fi
+
