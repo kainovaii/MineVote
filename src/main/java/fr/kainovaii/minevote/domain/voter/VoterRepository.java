@@ -66,8 +66,10 @@ public class VoterRepository
     {
         if (VoterRepository.voterExist(name)) {
             Voter player = Voter.findFirst("name = ?", name);
-            player.set("bank",  player.getInteger("bank") + value);
-            player.set("voting", player.getInteger("bank") +  value);
+            int currentBank = player.getInteger("bank");
+            int currentVoting = player.getInteger("voting");
+            player.set("bank", currentBank + value);
+            player.set("voting", currentVoting + value);
             player.saveIt();
         }
     }

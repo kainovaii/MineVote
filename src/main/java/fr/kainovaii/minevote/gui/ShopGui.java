@@ -18,7 +18,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +28,7 @@ public class ShopGui extends InventoryAPI {
 
     private final Player player;
     private final int page;
-    private ConfigManager configManager;
+    private final ConfigManager configManager;
 
     public ShopGui(Player player) {
         this(player, 0);
@@ -52,7 +51,7 @@ public class ShopGui extends InventoryAPI {
         }
         setupItems();
         setItem(4, GuiUtils.playerHead(player));
-        setItem(26, new ItemBuilder(Material.ARROW).name("§cRetour").build(),event -> {
+        setItem(26, new ItemBuilder(Material.ARROW).name("§cRetour").build(), event -> {
             if (event.isLeftClick()) {
                 player.closeInventory();
                 new MainGui(player).open(player);
@@ -62,143 +61,64 @@ public class ShopGui extends InventoryAPI {
 
     public void setupItems() {
         int slot = 10;
-        for (Map.Entry<String, ConfigurationSection> entry : configManager.getShopItems().entrySet()) {
+        Map<String, ConfigurationSection> items = configManager.getShopItems();
+        Map<String, ConfigurationSection> shulkers = configManager.getShopShulkers();
+
+        for (Map.Entry<String, ConfigurationSection> entry : items.entrySet()) {
             if (slot > 16) break;
 
             ConfigurationSection itemSection = entry.getValue();
-            String name = itemSection.getString("name", "§fItem inconnu").replace("&", "§");
-            String materialName = itemSection.getString("material", "STONE");
-            List<String> lore = itemSection.getStringList("lore");
-            List<String> formattedLore = new ArrayList<>();
-            for (String line : lore) {
-                formattedLore.add(line.replace("&", "§"));
-            }
+            ItemStack displayItem = buildDisplayItem(itemSection);
+            ItemStack giveItem = buildGiveItem(itemSection);
 
             double price = itemSection.getDouble("price", -1);
-            Material material = Material.matchMaterial(materialName);
-            if (material == null) material = Material.STONE;
+            String name = itemSection.getString("name", "§fItem inconnu").replace("&", "§");
 
-            String type = itemSection.getString("type", "").trim().toLowerCase();
-
-            ItemStack displayItem = null;
-            ItemStack giveItem = null;
-
-            if (type.equals("shulker")) {
-                List<String> displayedLore = new ArrayList<>(formattedLore);
-                if (price >= 0) {
-                    displayedLore.add("§7Prix: §e" + price + "⛃");
-                }
-
-                ItemBuilder displayBuilder = new ItemBuilder(Material.SHULKER_BOX)
-                        .name(name)
-                        .lore(displayedLore);
-
-                ItemBuilder giveBuilder = new ItemBuilder(Material.SHULKER_BOX)
-                        .name(name)
-                        .lore(formattedLore);
-
-                ConfigurationSection itemInside = itemSection.getConfigurationSection("item_inside");
-                if (itemInside != null) {
-                    String itemName = itemInside.getString("name", "§fObjet inconnu").replace("&", "§");
-                    String itemMaterial = itemInside.getString("material", "STONE");
-                    List<String> itemLore = itemInside.getStringList("lore");
-                    List<String> formattedItemLore = new ArrayList<>();
-                    for (String line : itemLore) {
-                        formattedItemLore.add(line.replace("&", "§"));
-                    }
-
-                    Material itemMaterialType = Material.matchMaterial(itemMaterial);
-                    if (itemMaterialType == null) itemMaterialType = Material.STONE;
-
-                    ItemStack itemInsideStack = new ItemStack(itemMaterialType);
-                    ItemMeta itemMeta = itemInsideStack.getItemMeta();
-                    if (itemMeta != null) {
-                        itemMeta.setDisplayName(itemName);
-                        itemMeta.setLore(formattedItemLore);
-                        List<String> enchantments = itemInside.getStringList("enchant");
-                        for (String enchant : enchantments) {
-                            String[] enchantData = enchant.split(":");
-                            if (enchantData.length == 2) {
-                                Enchantment enchantment = Enchantment.getByName(enchantData[0].toUpperCase());
-                                if (enchantment != null) {
-                                    int level = Integer.parseInt(enchantData[1]);
-                                    itemMeta.addEnchant(enchantment, level, true);
-                                }
-                            }
-                        }
-                        itemInsideStack.setItemMeta(itemMeta);
-                    }
-
-                    Inventory inventory = Bukkit.createInventory(null, 9, "Shulker Box Inventory");
-                    inventory.addItem(itemInsideStack);
-
-                    // Création du displayItem (avec prix)
-                    ItemStack shulkerDisplay = displayBuilder.build();
-                    BlockStateMeta displayMeta = (BlockStateMeta) shulkerDisplay.getItemMeta();
-                    if (displayMeta != null && displayMeta.getBlockState() instanceof ShulkerBox shulkerState) {
-                        shulkerState.getInventory().setContents(inventory.getContents());
-                        displayMeta.setBlockState(shulkerState);
-                        shulkerDisplay.setItemMeta(displayMeta);
-                        displayItem = shulkerDisplay;
-                    }
-
-                    ItemStack shulkerGive = giveBuilder.build();
-                    BlockStateMeta giveMeta = (BlockStateMeta) shulkerGive.getItemMeta();
-                    if (giveMeta != null && giveMeta.getBlockState() instanceof ShulkerBox shulkerState) {
-                        shulkerState.getInventory().setContents(inventory.getContents());
-                        giveMeta.setBlockState(shulkerState);
-                        shulkerGive.setItemMeta(giveMeta);
-                        giveItem = shulkerGive;
-                    }
-
-                } else {
-                    displayItem = displayBuilder.build();
-                    giveItem = giveBuilder.build();
-                }
-
-            } else {
-                List<String> displayedLore = new ArrayList<>(formattedLore);
-                if (price >= 0) {
-                    displayedLore.add("§7Prix: §e" + price + "⛃");
-                }
-
-                ItemBuilder displayBuilder = new ItemBuilder(material)
-                        .name(name)
-                        .lore(displayedLore);
-
-                ItemBuilder giveBuilder = new ItemBuilder(material)
-                        .name(name)
-                        .lore(formattedLore);
-
-                List<String> enchantments = itemSection.getStringList("enchant");
-                for (String enchant : enchantments) {
-                    try {
-                        Enchantment enchantment = Enchantment.getByName(enchant.toUpperCase());
-                        if (enchantment != null) {
-                            displayBuilder.enchant(enchantment, 1);
-                            giveBuilder.enchant(enchantment, 1);
-                        }
-                    } catch (Exception ignored) {}
-                }
-
-                displayItem = displayBuilder.build();
-                giveItem = giveBuilder.build();
-            }
-
-            final ItemStack itemToGive = giveItem;
-            final String itemName = name;
+            final ItemStack finalGiveItem = giveItem;
+            final int finalPrice = (int) price;
+            final String finalName = name;
 
             setItem(slot, displayItem, event -> {
-                if (event.getWhoClicked() instanceof Player player) {
-                    if (playerBuyItem(player, (int) price))
-                    {
-                        player.getInventory().addItem(itemToGive);
-                        player.sendMessage(Prefix.BASE.get() + configManager.getMessage("messages.shop_buyed")
+                if (event.getWhoClicked() instanceof Player p) {
+                    if (playerBuyItem(p, finalPrice)) {
+                        p.getInventory().addItem(finalGiveItem);
+                        p.sendMessage(Prefix.BASE.get() + configManager.getMessage("messages.shop_buyed")
                                 .replace("&", "§")
-                                .replace("{item}", itemName)
+                                .replace("{item}", finalName)
                         );
                     }
-                    player.closeInventory();
+                    p.closeInventory();
+                }
+            });
+
+            slot++;
+        }
+
+        for (Map.Entry<String, ConfigurationSection> entry : shulkers.entrySet()) {
+            if (slot > 16) break;
+
+            ConfigurationSection shulkerSection = entry.getValue();
+
+            ItemStack displayItem = buildShulkerDisplayItem(shulkerSection);
+            ItemStack giveItem = buildShulkerGiveItem(shulkerSection);
+
+            double price = shulkerSection.getDouble("price", -1);
+            String name = shulkerSection.getString("name", "§fShulker inconnu").replace("&", "§");
+
+            final ItemStack finalGiveItem = giveItem;
+            final int finalPrice = (int) price;
+            final String finalName = name;
+
+            setItem(slot, displayItem, event -> {
+                if (event.getWhoClicked() instanceof Player p) {
+                    if (playerBuyItem(p, finalPrice)) {
+                        p.getInventory().addItem(finalGiveItem);
+                        p.sendMessage(Prefix.BASE.get() + configManager.getMessage("messages.shop_buyed")
+                                .replace("&", "§")
+                                .replace("{item}", finalName)
+                        );
+                    }
+                    p.closeInventory();
                 }
             });
 
@@ -206,14 +126,162 @@ public class ShopGui extends InventoryAPI {
         }
     }
 
-    public boolean playerBuyItem(Player player, int price)
-    {
+    private ItemStack buildDisplayItem(ConfigurationSection section) {
+        String name = section.getString("name", "§fItem inconnu").replace("&", "§");
+        String materialName = section.getString("material", "STONE");
+        List<String> lore = section.getStringList("lore");
+        List<String> formattedLore = new ArrayList<>();
+        for (String line : lore) {
+            formattedLore.add(line.replace("&", "§"));
+        }
+        double price = section.getDouble("price", -1);
+        if (price >= 0) {
+            formattedLore.add("§7Prix: §e" + price + "⛃");
+        }
+
+        Material material = Material.matchMaterial(materialName);
+        if (material == null) material = Material.STONE;
+
+        ItemBuilder builder = new ItemBuilder(material).name(name).lore(formattedLore);
+
+        List<String> enchantments = section.getStringList("enchant");
+        for (String enchant : enchantments) {
+            try {
+                String[] parts = enchant.split(":");
+                Enchantment enchantment = Enchantment.getByName(parts[0].toUpperCase());
+                int level = parts.length == 2 ? Integer.parseInt(parts[1]) : 1;
+                if (enchantment != null) {
+                    builder.enchant(enchantment, level);
+                }
+            } catch (Exception ignored) {
+            }
+        }
+
+        return builder.build();
+    }
+
+    private ItemStack buildGiveItem(ConfigurationSection section) {
+        String name = section.getString("name", "§fItem inconnu").replace("&", "§");
+        String materialName = section.getString("material", "STONE");
+        List<String> lore = section.getStringList("lore");
+        List<String> formattedLore = new ArrayList<>();
+        for (String line : lore) {
+            formattedLore.add(line.replace("&", "§"));
+        }
+
+        Material material = Material.matchMaterial(materialName);
+        if (material == null) material = Material.STONE;
+
+        ItemBuilder builder = new ItemBuilder(material).name(name).lore(formattedLore);
+
+        List<String> enchantments = section.getStringList("enchant");
+        for (String enchant : enchantments) {
+            try {
+                String[] parts = enchant.split(":");
+                Enchantment enchantment = Enchantment.getByName(parts[0].toUpperCase());
+                int level = parts.length == 2 ? Integer.parseInt(parts[1]) : 1;
+                if (enchantment != null) {
+                    builder.enchant(enchantment, level);
+                }
+            } catch (Exception ignored) {
+            }
+        }
+
+        return builder.build();
+    }
+
+    private ItemStack buildShulkerDisplayItem(ConfigurationSection section) {
+        String name = section.getString("name", "§fShulker inconnu").replace("&", "§");
+        String materialName = section.getString("material", "SHULKER_BOX");
+        List<String> lore = section.getStringList("lore");
+        List<String> formattedLore = new ArrayList<>();
+        for (String line : lore) {
+            formattedLore.add(line.replace("&", "§"));
+        }
+        double price = section.getDouble("price", -1);
+        if (price >= 0) {
+            formattedLore.add("§7Prix: §e" + price + "⛃");
+        }
+
+        Material material = Material.matchMaterial(materialName);
+        if (material == null) material = Material.SHULKER_BOX;
+
+        ItemBuilder displayBuilder = new ItemBuilder(material).name(name).lore(formattedLore);
+
+        ItemStack shulkerDisplay = displayBuilder.build();
+        BlockStateMeta meta = (BlockStateMeta) shulkerDisplay.getItemMeta();
+
+        if (meta != null && meta.getBlockState() instanceof ShulkerBox shulkerBox) {
+            Inventory inv = Bukkit.createInventory(null, 9, "Shulker Box Inventory");
+
+            ConfigurationSection itemsInside = section.getConfigurationSection("item_inside");
+            if (itemsInside != null) {
+                int i = 0;
+                for (String key : itemsInside.getKeys(false)) {
+                    if (i >= 9) break;
+                    ConfigurationSection itemSection = itemsInside.getConfigurationSection(key);
+                    if (itemSection != null) {
+                        ItemStack insideItem = buildGiveItem(itemSection);
+                        inv.setItem(i, insideItem);
+                        i++;
+                    }
+                }
+            }
+            shulkerBox.getInventory().setContents(inv.getContents());
+            meta.setBlockState(shulkerBox);
+            shulkerDisplay.setItemMeta(meta);
+        }
+
+        return shulkerDisplay;
+    }
+
+    private ItemStack buildShulkerGiveItem(ConfigurationSection section) {
+        String name = section.getString("name", "§fShulker inconnu").replace("&", "§");
+        String materialName = section.getString("material", "SHULKER_BOX");
+        List<String> lore = section.getStringList("lore");
+        List<String> formattedLore = new ArrayList<>();
+        for (String line : lore) {
+            formattedLore.add(line.replace("&", "§"));
+        }
+
+        Material material = Material.matchMaterial(materialName);
+        if (material == null) material = Material.SHULKER_BOX;
+
+        ItemBuilder giveBuilder = new ItemBuilder(material).name(name).lore(formattedLore);
+
+        ItemStack shulkerGive = giveBuilder.build();
+        BlockStateMeta meta = (BlockStateMeta) shulkerGive.getItemMeta();
+
+        if (meta != null && meta.getBlockState() instanceof ShulkerBox shulkerBox) {
+            Inventory inv = Bukkit.createInventory(null, 9, "Shulker Box Inventory");
+
+            ConfigurationSection itemsInside = section.getConfigurationSection("item_inside");
+            if (itemsInside != null) {
+                int i = 0;
+                for (String key : itemsInside.getKeys(false)) {
+                    if (i >= 9) break;
+                    ConfigurationSection itemSection = itemsInside.getConfigurationSection(key);
+                    if (itemSection != null) {
+                        ItemStack insideItem = buildGiveItem(itemSection);
+                        inv.setItem(i, insideItem);
+                        i++;
+                    }
+                }
+            }
+            shulkerBox.getInventory().setContents(inv.getContents());
+            meta.setBlockState(shulkerBox);
+            shulkerGive.setItemMeta(meta);
+        }
+
+        return shulkerGive;
+    }
+
+    public boolean playerBuyItem(Player player, int price) {
         PlayerBuyItemEvent buyEvent = new PlayerBuyItemEvent(player, "0x40f545dQ545", price);
         Bukkit.getPluginManager().callEvent(buyEvent);
         int bank = VoterRepository.getBank(player.getName());
 
-        if (bank >= price)
-        {
+        if (bank >= price) {
             VoterRepository.updateBank(player.getName(), bank - price);
             return true;
         } else {

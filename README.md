@@ -15,6 +15,8 @@
   - ⌛ Player has voted view
   - ⌛ DiscordSRV support
   - ⌛ Command give vote
+  - ⌛ Shop item no enchant
+  - ⌛ add hexa color
 
 ## 📥 Installation
 
