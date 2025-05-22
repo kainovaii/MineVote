@@ -14,48 +14,54 @@ import java.util.List;
 
 public class VotifierListener implements Listener
 {
-    MineVote mineVote;
-    private ConfigManager configManager;
-    private VoterRepository voterRepository;
+    private final MineVote mineVote;
+    private final ConfigManager configManager;
 
-    public VotifierListener (MineVote plugin)
+    public VotifierListener(MineVote plugin)
     {
+        this.mineVote = plugin;
         this.configManager = plugin.getConfigManager();
     }
 
     @EventHandler
     public void onVote(VotifierEvent event)
     {
-        mineVote = MineVote.getInstance();
         Vote vote = event.getVote();
         String playerName = vote.getUsername();
+
+        if (playerName == null || playerName.isEmpty()) {
+            return;
+        }
 
         voteIncrement(playerName);
         playerIncrementVote(playerName);
 
-        List<Object> commands = configManager.getConfigList("rewards");
-        for (Object command : commands) {
+        for (Object command : configManager.getConfigList("rewards"))
+        {
             mineVote.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.toString().replace("{player}", playerName));
         }
     }
 
     public void playerIncrementVote(String playerName)
     {
-        int voting = VoterRepository.getVoting(playerName);
-        int bank = VoterRepository.getBank(playerName);
-        VoterRepository.updateVoteCount(playerName, voting + 1);
-        VoterRepository.updateBank(playerName, bank + 1);
+        if (VoterRepository.voterExist(playerName))
+        {
+            int voting = VoterRepository.getVoting(playerName);
+            int bank = VoterRepository.getBank(playerName);
+            VoterRepository.updateVoteCount(playerName, voting + 1);
+            VoterRepository.updateBank(playerName, bank + 1);
+        }
     }
 
     public void voteIncrement(String playerName)
     {
-        int voteCounter = (int) configManager.getConfig("voteCounter");
-        int voteObjective = (int) configManager.getConfig("voteObjective");
+        int voteCounter = Integer.parseInt(configManager.getConfig("voteCounter").toString());
+        int voteObjective = Integer.parseInt(configManager.getConfig("voteObjective").toString());
         int newCount = voteCounter + 1;
-        if (newCount != voteObjective)
 
+        if (newCount != voteObjective)
         {
-            mineVote.getServer().broadcastMessage(Prefix.BASE.get() + configManager.getMessage("messages.player_voted")
+            Bukkit.getServer().broadcastMessage(Prefix.BASE.get() + configManager.getMessage("messages.player_voted")
                     .replace("{vote_counter}", String.valueOf(newCount))
                     .replace("{vote_objective}", String.valueOf(voteObjective))
                     .replace("{player}", playerName)
@@ -65,13 +71,12 @@ public class VotifierListener implements Listener
 
         if (newCount >= voteObjective)
         {
-            mineVote.getServer().broadcastMessage(Prefix.BASE.get() + configManager.getMessage("messages.start_boost")
+            Bukkit.getServer().broadcastMessage(Prefix.BASE.get() + configManager.getMessage("messages.start_boost")
                     .replace("{player}", playerName)
             );
             configManager.setConfig("voteCounter", 0);
 
-            List<Object> commands = configManager.getConfigList("boost");
-            for (Object command : commands) {
+            for (Object command : configManager.getConfigList("boost")) {
                 mineVote.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.toString());
             }
         }

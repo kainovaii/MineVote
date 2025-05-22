@@ -12,6 +12,7 @@
   - ⌛ Customizable GUI (Glass color, size, text, currency)
   - ⌛ Ranking player
   - ⌛ Ranking multi page all voter
+  - ⌛ Player has voted view
 
 ## 📥 Installation
 

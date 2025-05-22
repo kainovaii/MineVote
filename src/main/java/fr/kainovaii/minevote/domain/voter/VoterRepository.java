@@ -48,4 +48,10 @@ public class VoterRepository
         player.set("bank", solde);
         player.saveIt();
     }
+
+    public static boolean voterExist(String name)
+    {
+        Voter player = Voter.findFirst("name = ?", name);
+        return player != null;
+    }
 }
