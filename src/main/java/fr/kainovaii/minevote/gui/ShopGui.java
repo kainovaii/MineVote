@@ -191,7 +191,7 @@ public class ShopGui extends InventoryAPI {
                     if (playerBuyItem(player, (int) price))
                     {
                         player.getInventory().addItem(itemToGive);
-                        player.sendMessage(Prefix.BASE.get() + configManager.getMessage("messages.cwshop_buyed")
+                        player.sendMessage(Prefix.BASE.get() + configManager.getMessage("messages.shop_buyed")
                                 .replace("&", "§")
                                 .replace("{item}", itemName)
                         );

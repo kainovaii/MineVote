@@ -177,20 +177,6 @@ public class MainGui extends InventoryAPI {
         return compass;
     }
 
-    public void openWebUrl(String url)
-    {
-        setItem(2, new ItemBuilder(Material.WRITABLE_BOOK).name("§bVoir ressource").lore("§7Clique pour ouvrir le lien.").build(), e -> {
-            player.closeInventory();
-            TextComponent message = new TextComponent("§aClique ici pour ouvrir le lien : ");
-            TextComponent link = new TextComponent(url);
-            link.setColor(net.md_5.bungee.api.ChatColor.AQUA);
-            link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
-            message.addExtra(link);
-
-            player.spigot().sendMessage(message);
-        });
-    }
-
     public void arrowBack()
     {
         setItem(26, new ItemBuilder(Material.ARROW).name(configManager.getMessage("gui.arrows.back")).build(),event -> {
