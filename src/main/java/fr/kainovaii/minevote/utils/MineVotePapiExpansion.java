@@ -18,16 +18,23 @@ public class MineVotePapiExpansion  extends PlaceholderExpansion
 
     @Override
     public String onRequest(OfflinePlayer player, String identifier) {
-        if (identifier.equals("counter")) {
-            int voteCount = (int) configManager.getConfig("voteCounter");
-            return String.valueOf(voteCount);
+        switch (identifier) {
+            case "counter" -> {
+                int voteCount = (int) configManager.getConfig("voteCounter");
+                return String.valueOf(voteCount);
+            }
+            case "objective" -> {
+                int voteObjective = (int) configManager.getConfig("voteObjective");
+                return String.valueOf(voteObjective);
+            }
+            case "status" -> {
+                if ((boolean) configManager.getConfig("boost-settings.status")) {
+                    return configManager.getMessage("messages.boost_on");
+                } else {
+                    return configManager.getMessage("messages.boost_off");
+                }
+            }
         }
-
-        if (identifier.equals("objective")) {
-            int voteObjective = (int) configManager.getConfig("voteObjective");
-            return String.valueOf(voteObjective);
-        }
-
         return null;
     }
 

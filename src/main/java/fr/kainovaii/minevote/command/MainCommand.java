@@ -1,10 +1,7 @@
 package fr.kainovaii.minevote.command;
 
 import co.aikar.commands.BaseCommand;
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Default;
-import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.*;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
@@ -37,6 +34,8 @@ public class MainCommand extends BaseCommand
 
     @Subcommand("give")
     @CommandPermission("minevote.give")
+    @Syntax("<player> <value>")
+    @CommandCompletion("@players")
     public void give(CommandSender sender, String target, int value) {
         Player player = (Player) sender;
 

@@ -13,10 +13,7 @@
   - ⌛ Ranking player
   - ⌛ Ranking multi page all voter
   - ⌛ Player has voted view
-  - ⌛ DiscordSRV support
-  - ⌛ Command give vote
-  - ⌛ Shop item no enchant
-  - ⌛ add hexa color
+  - ✔️ Boost status placeholder
 
 ## 📥 Installation
 

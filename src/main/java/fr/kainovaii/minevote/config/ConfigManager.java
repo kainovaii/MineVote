@@ -1,5 +1,6 @@
 package fr.kainovaii.minevote.config;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -154,6 +155,15 @@ public class ConfigManager {
         return shulkersMap;
     }
 
+    public int getInt(String path) {
+        Object value = getConfig(path);
+        if (value instanceof Number) return ((Number) value).intValue();
+        try {
+            return Integer.parseInt(String.valueOf(value));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
 
     public void reloadConfigs() {
         plugin.reloadConfig();

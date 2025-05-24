@@ -2,6 +2,11 @@ prefix: "&7[&6MineVote&7] &f"
 voteCounter: 0
 voteObjective: 5
 
+boost-settings:
+  status: false
+  time: 1200
+
+
 # Vote site GUI items
 providers:
   serveur-prive:
@@ -14,7 +19,7 @@ rewards:
 
 # Boost start event (command)
 boost:
-  - 'jobs boost 2 86400'
+  - 'jobs boost 2 3600'
 
 customize-gui:
   borderMaterial: 'BLACK_STAINED_GLASS_PANE'

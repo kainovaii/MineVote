@@ -6,6 +6,8 @@ messages:
   shop_buyed: "vous avez reçu l'objet: &b{item}"
   shop_no_money: "vous n'avez pas assez de point pour acheter ceci"
   open_site_url: "&aClique ici pour ouvrir le lien : "
+  boost_on: "&aactif"
+  boost_off: "&cinactif"
 
 gui:
   compass:

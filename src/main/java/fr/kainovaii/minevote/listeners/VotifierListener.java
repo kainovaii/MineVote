@@ -1,5 +1,9 @@
 package fr.kainovaii.minevote.listeners;
 
+import co.aikar.taskchain.BukkitTaskChainFactory;
+import co.aikar.taskchain.TaskChain;
+import co.aikar.taskchain.TaskChainFactory;
+import co.aikar.taskchain.TaskChainTasks;
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
 import fr.kainovaii.minevote.MineVote;
@@ -72,13 +76,23 @@ public class VotifierListener implements Listener
         if (newCount >= voteObjective)
         {
             Bukkit.getServer().broadcastMessage(Prefix.BASE.get() + configManager.getMessage("messages.start_boost")
-                    .replace("{player}", playerName)
+                .replace("{player}", playerName)
             );
+
             configManager.setConfig("voteCounter", 0);
+            configManager.setConfig("boost-settings.status", true);
 
             for (Object command : configManager.getConfigList("boost")) {
                 mineVote.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.toString());
             }
+
+            TaskChainFactory taskChainFactory = BukkitTaskChainFactory.create(this.mineVote);
+            taskChainFactory.newChain()
+            .delay(configManager.getInt("boost-settings.time"))
+            .sync(() -> {
+                configManager.setConfig("boost-settings.status", false);
+            })
+            .execute();
         }
     }
 }
