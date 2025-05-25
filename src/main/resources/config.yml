@@ -1,11 +1,11 @@
 prefix: "&7[&6MineVote&7] &f"
+
 voteCounter: 0
 voteObjective: 5
 
 boost-settings:
   status: false
   time: 1200
-
 
 # Vote site GUI items
 providers:
@@ -17,9 +17,12 @@ rewards:
   - 'give {player} minecraft:diamond 1'
   - 'aach add 1 Custom.votes {player}'
 
-# Boost start event (command)
-boost:
-  - 'jobs boost 2 3600'
+# Boost start/end event (command)
+boost-event:
+  start:
+    - 'jobs boost 2'
+  end:
+    - 'jobs boost reset'
 
 customize-gui:
   borderMaterial: 'BLACK_STAINED_GLASS_PANE'

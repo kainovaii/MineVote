@@ -7,6 +7,8 @@ import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.gui.ShopGui;
 import fr.kainovaii.minevote.gui.main.MainGui;
+import fr.kainovaii.minevote.utils.BoostManager;
+import fr.kainovaii.minevote.utils.MineVoteNotifier;
 import fr.kainovaii.minevote.utils.Prefix;
 import jdk.jfr.Description;
 import org.bukkit.command.CommandSender;
@@ -17,8 +19,12 @@ import org.bukkit.entity.Player;
 public class MainCommand extends BaseCommand
 {
     private ConfigManager configManager;
+    private BoostManager boostManager;
 
-    public MainCommand () {this.configManager = MineVote.getInstance().getConfigManager(); }
+    public MainCommand () {
+        this.configManager = MineVote.getInstance().getConfigManager();
+        this.boostManager = new BoostManager();
+    }
 
     @Default
     public void index(CommandSender sender) {
@@ -44,6 +50,25 @@ public class MainCommand extends BaseCommand
                 .replace("{player}", target)
                 .replace("{value}", String.valueOf(value))
         );
+    }
+
+    @Subcommand("boost")
+    @CommandPermission("minevote.boost")
+    @Syntax("set <on/off>")
+    public void boost(CommandSender sender, boolean value) {
+        Player player = (Player) sender;
+        if (value)
+        {
+            boostManager.start();
+            MineVoteNotifier.broadcast(configManager.getMessage("messages.force_boost_start")
+                    .replace("{player}", player.getName())
+            );
+        } else {
+            // Logic boost stop
+            MineVoteNotifier.broadcast(configManager.getMessage("messages.force_boost_stop")
+                    .replace("{player}", player.getName())
+            );
+        }
     }
 
     @Subcommand("reload")

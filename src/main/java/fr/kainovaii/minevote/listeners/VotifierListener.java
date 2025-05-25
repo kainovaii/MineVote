@@ -9,6 +9,8 @@ import com.vexsoftware.votifier.model.VotifierEvent;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
+import fr.kainovaii.minevote.utils.BoostManager;
+import fr.kainovaii.minevote.utils.MineVoteNotifier;
 import fr.kainovaii.minevote.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -20,11 +22,13 @@ public class VotifierListener implements Listener
 {
     private final MineVote mineVote;
     private final ConfigManager configManager;
+    private final BoostManager boostManager;
 
     public VotifierListener(MineVote plugin)
     {
         this.mineVote = plugin;
         this.configManager = plugin.getConfigManager();
+        this.boostManager = new BoostManager();
     }
 
     @EventHandler
@@ -65,34 +69,18 @@ public class VotifierListener implements Listener
 
         if (newCount != voteObjective)
         {
-            Bukkit.getServer().broadcastMessage(Prefix.BASE.get() + configManager.getMessage("messages.player_voted")
+            MineVoteNotifier.broadcast(configManager.getMessage("messages.player_voted")
                     .replace("{vote_counter}", String.valueOf(newCount))
                     .replace("{vote_objective}", String.valueOf(voteObjective))
-                    .replace("{player}", playerName)
-            );
+                    .replace("{player}", playerName));
             configManager.setConfig("voteCounter", newCount);
         }
 
         if (newCount >= voteObjective)
         {
-            Bukkit.getServer().broadcastMessage(Prefix.BASE.get() + configManager.getMessage("messages.start_boost")
-                .replace("{player}", playerName)
-            );
-
+            MineVoteNotifier.broadcast(configManager.getMessage("messages.start_boost").replace("{player}", playerName));
             configManager.setConfig("voteCounter", 0);
-            configManager.setConfig("boost-settings.status", true);
-
-            for (Object command : configManager.getConfigList("boost")) {
-                mineVote.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.toString());
-            }
-
-            TaskChainFactory taskChainFactory = BukkitTaskChainFactory.create(this.mineVote);
-            taskChainFactory.newChain()
-            .delay(configManager.getInt("boost-settings.time"))
-            .sync(() -> {
-                configManager.setConfig("boost-settings.status", false);
-            })
-            .execute();
+            boostManager.start();
         }
     }
 }

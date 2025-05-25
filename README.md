@@ -13,7 +13,8 @@
   - ⌛ Ranking player
   - ⌛ Ranking multi page all voter
   - ⌛ Player has voted view
-  - ✔️ Boost status placeholder
+  - ✔️ Refacto boost system
+  - ✔️ Add notifier
 
 ## 📥 Installation
 

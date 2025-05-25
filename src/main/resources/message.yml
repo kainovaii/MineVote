@@ -6,6 +6,8 @@ messages:
   shop_buyed: "vous avez reçu l'objet: &b{item}"
   shop_no_money: "vous n'avez pas assez de point pour acheter ceci"
   open_site_url: "&aClique ici pour ouvrir le lien : "
+  force_boost_start: "&b{player} &fvient de démarrer un boost métier !"
+  force_boost_stop: "le boost métier de &b{player} &fest terminé."
   boost_on: "&aactif"
   boost_off: "&cinactif"
 
