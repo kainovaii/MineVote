@@ -1,6 +1,5 @@
 package fr.kainovaii.minevote.gui;
 
-import fr.kainovaii.minevote.events.PlayerBuyItemEvent;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
@@ -277,8 +276,8 @@ public class ShopGui extends InventoryAPI {
     }
 
     public boolean playerBuyItem(Player player, int price) {
-        PlayerBuyItemEvent buyEvent = new PlayerBuyItemEvent(player, "0x40f545dQ545", price);
-        Bukkit.getPluginManager().callEvent(buyEvent);
+        //PlayerBuyItemEvent buyEvent = new PlayerBuyItemEvent(player, "0x40f545dQ545", price);
+        //Bukkit.getPluginManager().callEvent(buyEvent);
         int bank = VoterRepository.getBank(player.getName());
 
         if (bank >= price) {
