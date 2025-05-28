@@ -4,7 +4,7 @@
     <br />
 </p>
 <p align="center">
-    <img src="https://img.shields.io/badge/Version-0.2-orange.svg" />
+    <img src="https://img.shields.io/badge/Version-0.4-orange.svg" />
     <img style="margin-left: 10px;" src="https://img.shields.io/badge/License-MIT-orange.svg" />
 </p>
 
@@ -35,3 +35,20 @@ To ensure that votes are properly received by your server, configure NuVotifier:
 host: 0.0.0.0
 port: 8192
 token: "<automatically generated>"
+```
+
+## 🔧 Placeholders (PlaceholderAPI)
+
+MineVote fournit plusieurs placeholders pour afficher des informations sur le boost de vote dans votre serveur, via PlaceholderAPI.
+
+| Placeholder                 | Description                                    |
+|-----------------------------|------------------------------------------------|
+| `%minevote_counter%`         | Nombre total de votes comptabilisés pendant le boost. |
+| `%minevote_objective%`       | Objectif de votes défini dans la configuration. |
+| `%minevote_status%`          | Statut du boost : affiche un message indiquant si le boost est activé ou non. |
+| `%minevote_timeleft%`        | Temps restant du boost, affiché au format mm:ss, ou une icône horloge si terminé. |
+
+### Comment utiliser ?
+
+1. Assurez-vous que PlaceholderAPI est installé et chargé sur votre serveur.
+2. Intégrez ces placeholders dans vos messages, panneaux, ou commandes compatibles PlaceholderAPI.
