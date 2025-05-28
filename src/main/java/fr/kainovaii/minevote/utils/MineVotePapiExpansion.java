@@ -34,6 +34,16 @@ public class MineVotePapiExpansion  extends PlaceholderExpansion
                     return configManager.getMessage("messages.boost_off");
                 }
             }
+            case "timeleft" -> {
+                int timeLeft = MineVote.getGlobalTimerSeconds();
+                if(timeLeft > 0) {
+                    int minutes = timeLeft / 60;
+                    int seconds = timeLeft % 60;
+                    return String.format("%02d:%02d", minutes, seconds);
+                } else {
+                    return "⏰";
+                }
+            }
         }
         return null;
     }

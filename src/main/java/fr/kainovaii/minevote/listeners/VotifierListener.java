@@ -63,8 +63,8 @@ public class VotifierListener implements Listener
 
     public void voteIncrement(String playerName)
     {
-        int voteCounter = Integer.parseInt(configManager.getConfig("voteCounter").toString());
-        int voteObjective = Integer.parseInt(configManager.getConfig("voteObjective").toString());
+        int voteCounter = configManager.getInt("boost-settings.counter");
+        int voteObjective = configManager.getInt("boost-settings.objective");
         int newCount = voteCounter + 1;
 
         if (newCount != voteObjective)
@@ -73,13 +73,13 @@ public class VotifierListener implements Listener
                     .replace("{vote_counter}", String.valueOf(newCount))
                     .replace("{vote_objective}", String.valueOf(voteObjective))
                     .replace("{player}", playerName));
-            configManager.setConfig("voteCounter", newCount);
+            configManager.setConfig("boost-settings.counter", newCount);
         }
 
         if (newCount >= voteObjective)
         {
             MineVoteNotifier.broadcast(configManager.getMessage("messages.start_boost").replace("{player}", playerName));
-            configManager.setConfig("voteCounter", 0);
+            configManager.setConfig("boost-settings.counter", 0);
             boostManager.start();
         }
     }

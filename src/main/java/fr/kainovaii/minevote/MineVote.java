@@ -11,6 +11,7 @@ public final class MineVote extends JavaPlugin
 {
     private static MineVote instance;
     public ConfigManager configManager;
+    private static int globalTimerSeconds = 0;
 
     @Override
     public void onEnable()
@@ -24,6 +25,14 @@ public final class MineVote extends JavaPlugin
         loader.registerListener();
         loader.registerCommand();
         loader.registerExpansion();
+    }
+
+    public static int getGlobalTimerSeconds() {
+        return globalTimerSeconds;
+    }
+
+    public static void setGlobalTimerSeconds(int seconds) {
+        globalTimerSeconds = seconds;
     }
 
     public ConfigManager getConfigManager() {

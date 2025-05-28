@@ -6,22 +6,22 @@ import co.aikar.taskchain.TaskChainFactory;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
 
-
-public class BoostManager {
+public class BoostManager2
+{
     private final MineVote mineVote;
     private final ConfigManager configManager;
     private final TaskChainFactory taskChainFactory;
 
-    public BoostManager() {
+    public BoostManager2()
+    {
         this.mineVote = MineVote.getInstance();
-        this.configManager = mineVote.getConfigManager();
-        this.taskChainFactory = BukkitTaskChainFactory.create(mineVote);
+        this.configManager = MineVote.getInstance().getConfigManager();
+        this.taskChainFactory = BukkitTaskChainFactory.create(this.mineVote);
     }
 
-    public void start() {
-        int boostTimeSeconds = configManager.getInt("boost-settings.time");
+    public void start()
+    {
         configManager.setConfig("boost-settings.status", true);
 
         for (Object command : configManager.getConfigList("boost-event.start")) {
@@ -29,20 +29,24 @@ public class BoostManager {
         }
 
         TaskChain<?> chain = taskChainFactory.newChain();
-        for (int i = boostTimeSeconds; i > 0; i--) {
+        for (int i = configManager.getInt("boost-settings.time"); i > 0; i--) {
             final int secondsLeft = i;
-            chain = chain.delay(20) // 20 ticks = 1 seconde
+            chain = chain.delay(20) // 1 seconde = 20 ticks
             .sync(() -> {
                 MineVote.setGlobalTimerSeconds(secondsLeft);
+                System.out.println("Time left: " + secondsLeft);
             });
         }
 
-        chain.sync(() -> {
+        taskChainFactory.newChain()
+        .delay(configManager.getInt("boost-settings.time"))
+        .sync(() -> {
             for (Object command : configManager.getConfigList("boost-event.end")) {
                 mineVote.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.toString());
             }
             configManager.setConfig("boost-settings.status", false);
-            MineVote.setGlobalTimerSeconds(0);
-        }).execute();
+        })
+        .execute();
     }
+
 }
