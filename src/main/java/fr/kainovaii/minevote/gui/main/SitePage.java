@@ -17,8 +17,8 @@ public class SitePage
         int slot = 10;
         for (Map.Entry<String, ConfigurationSection> entry : gui.getConfig().getProviders().entrySet()) {
             if (slot > 16) break;
-            String name = entry.getKey();
             ConfigurationSection provider = entry.getValue();
+            String name = provider.getString("title").replace("&", "§");
             String url = provider.getString("url");
 
             gui.setItem(slot, new ItemBuilder(Material.GREEN_WOOL)

@@ -1,15 +1,15 @@
 prefix: "&7[&6MineVote&7] &f"
 
-voteCounter: 0
-voteObjective: 5
-
 boost-settings:
   status: false
+  counter: 0
+  objective: 5
   time: 1200
 
 # Vote site GUI items
 providers:
-  serveur-prive:
+  site1:
+      title: "&fServeur privé"
       url: 'https://serveur-prive.net/minecraft/monserveur'
 
 # Player vote event (command)

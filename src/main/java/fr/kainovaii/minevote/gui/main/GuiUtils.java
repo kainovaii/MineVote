@@ -64,8 +64,8 @@ public class GuiUtils
 
     public static ItemStack voteCompass(MainGui gui)
     {
-        int voteCounter = (int) gui.getConfig().getConfig("voteCounter");
-        int voteObjective = (int) gui.getConfig().getConfig("voteObjective");
+        int voteCounter = (int) gui.getConfig().getConfig("boost-settings.counter");
+        int voteObjective = (int) gui.getConfig().getConfig("boost-settings.objective");
 
         ItemStack compass = new ItemBuilder(Material.COMPASS)
                 .name(gui.getConfig().getMessage("gui.compass.name"))

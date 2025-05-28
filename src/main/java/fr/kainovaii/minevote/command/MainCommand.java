@@ -38,6 +38,18 @@ public class MainCommand extends BaseCommand
         new ShopGui(player).open(player);
     }
 
+    @Subcommand("site")
+    public void site(CommandSender sender) {
+        Player player = (Player) sender;
+        new MainGui(player, 1).open(player);
+    }
+
+    @Subcommand("ranking")
+    public void rankibg(CommandSender sender) {
+        Player player = (Player) sender;
+        new MainGui(player, 2).open(player);
+    }
+
     @Subcommand("give")
     @CommandPermission("minevote.give")
     @Syntax("<player> <value>")
