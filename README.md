@@ -9,12 +9,8 @@
 </p>
 
 ### TODO
-  - ⌛ Customizable GUI (Glass color, size, text, currency)
-  - ⌛ Ranking player
-  - ⌛ Ranking multi page all voter
+  - ⌛ Ranking player position
   - ⌛ Player has voted view
-  - ✔️ Refacto boost system
-  - ✔️ Add notifier
 
 ## 📥 Installation
 
