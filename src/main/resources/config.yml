@@ -4,7 +4,7 @@ boost-settings:
   status: false
   counter: 0
   objective: 5
-  time: 1200
+  time: 60 # In real seconds
 
 # Vote site GUI items
 providers:

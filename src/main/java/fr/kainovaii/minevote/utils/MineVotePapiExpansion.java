@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MineVotePapiExpansion  extends PlaceholderExpansion
 {
-    private ConfigManager configManager;
+    private final ConfigManager configManager;
 
     public MineVotePapiExpansion()
     {
@@ -41,7 +41,7 @@ public class MineVotePapiExpansion  extends PlaceholderExpansion
                     int seconds = timeLeft % 60;
                     return String.format("%02d:%02d", minutes, seconds);
                 } else {
-                    return "⏰";
+                    return ""; // ⏰
                 }
             }
         }
@@ -63,7 +63,7 @@ public class MineVotePapiExpansion  extends PlaceholderExpansion
     @Override
     public @NotNull String getVersion()
     {
-        return "0.1";
+        return "0.4";
     }
 
 }
