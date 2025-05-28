@@ -39,16 +39,16 @@ token: "<automatically generated>"
 
 ## 🔧 Placeholders (PlaceholderAPI)
 
-MineVote fournit plusieurs placeholders pour afficher des informations sur le boost de vote dans votre serveur, via PlaceholderAPI.
+MineVote provides several placeholders to display vote boost information on your server using PlaceholderAPI.
 
-| Placeholder                 | Description                                    |
-|-----------------------------|------------------------------------------------|
-| `%minevote_counter%`         | Nombre total de votes comptabilisés pendant le boost. |
-| `%minevote_objective%`       | Objectif de votes défini dans la configuration. |
-| `%minevote_status%`          | Statut du boost : affiche un message indiquant si le boost est activé ou non. |
-| `%minevote_timeleft%`        | Temps restant du boost, affiché au format mm:ss, ou une icône horloge si terminé. |
+| Placeholder              | Description                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| `%minevote_counter%`     | Total number of votes counted during the boost.                            |
+| `%minevote_objective%`   | Vote goal set in the configuration.                                        |
+| `%minevote_status%`      | Boost status: displays a message indicating whether the boost is active.   |
+| `%minevote_timeleft%`    | Remaining boost time in `mm:ss` format, or a clock icon if it has ended.   |
 
-### Comment utiliser ?
+### How to use?
 
-1. Assurez-vous que PlaceholderAPI est installé et chargé sur votre serveur.
-2. Intégrez ces placeholders dans vos messages, panneaux, ou commandes compatibles PlaceholderAPI.
+1. Make sure PlaceholderAPI is installed and loaded on your server.
+2. Integrate these placeholders into your messages, signs, or commands that support PlaceholderAPI.
