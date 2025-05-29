@@ -27,26 +27,26 @@ public class MainCommand extends BaseCommand
     }
 
     @Default
-    public void index(CommandSender sender) {
-        Player player = (Player) sender;
+    public void index(Player player)
+    {
         new MainGui(player).open(player);
     }
 
     @Subcommand("shop")
-    public void shop(CommandSender sender) {
-        Player player = (Player) sender;
+    public void shop(Player player)
+    {
         new ShopGui(player).open(player);
     }
 
     @Subcommand("site")
-    public void site(CommandSender sender) {
-        Player player = (Player) sender;
+    public void site(Player player)
+    {
         new MainGui(player, 1).open(player);
     }
 
     @Subcommand("ranking")
-    public void rankibg(CommandSender sender) {
-        Player player = (Player) sender;
+    public void ranking(Player player)
+    {
         new MainGui(player, 2).open(player);
     }
 
@@ -54,21 +54,20 @@ public class MainCommand extends BaseCommand
     @CommandPermission("minevote.give")
     @Syntax("<player> <value>")
     @CommandCompletion("@players")
-    public void give(CommandSender sender, String target, int value) {
-        Player player = (Player) sender;
-
+    public void give(Player player, String target, int value)
+    {
         VoterRepository.incrementVoter(target, value);
         player.sendMessage(Prefix.BASE.get() + "le joueur {player} a reçu {value} votes supplémentaires."
-                .replace("{player}", target)
-                .replace("{value}", String.valueOf(value))
+            .replace("{player}", target)
+            .replace("{value}", String.valueOf(value))
         );
     }
 
     @Subcommand("boost")
     @CommandPermission("minevote.boost")
     @Syntax("set <on/off>")
-    public void boost(CommandSender sender, boolean value) {
-        Player player = (Player) sender;
+    public void boost(Player player, boolean value)
+    {
         if (value)
         {
             boostManager.start();
@@ -85,9 +84,9 @@ public class MainCommand extends BaseCommand
 
     @Subcommand("reload")
     @CommandPermission("minevote.reload")
-    public void reload(CommandSender sender) {
-        Player player = (Player) sender;
+    public void reload(Player player) {
         configManager.reloadConfigs();
         player.sendMessage(Prefix.BASE.get() + "the config has been reloaded");
     }
+
 }

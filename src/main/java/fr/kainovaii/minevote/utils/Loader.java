@@ -1,5 +1,6 @@
 package fr.kainovaii.minevote.utils;
 
+import co.aikar.commands.ConditionFailedException;
 import co.aikar.commands.PaperCommandManager;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.command.MainCommand;
@@ -8,6 +9,7 @@ import fr.kainovaii.minevote.listeners.PlayerJoinListener;
 import fr.kainovaii.minevote.listeners.VotifierListener;
 import fr.kainovaii.minevote.utils.gui.InventoryManager;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class Loader
 {

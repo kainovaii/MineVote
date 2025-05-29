@@ -13,6 +13,7 @@ public class BoostManager {
     private final MineVote mineVote;
     private final ConfigManager configManager;
     private final TaskChainFactory taskChainFactory;
+    private static int globalTimerSeconds = 0;
 
     public BoostManager() {
         this.mineVote = MineVote.getInstance();
@@ -33,7 +34,7 @@ public class BoostManager {
             final int secondsLeft = i;
             chain = chain.delay(20) // 20 ticks = 1 seconde
             .sync(() -> {
-                MineVote.setGlobalTimerSeconds(secondsLeft);
+                setGlobalTimerSeconds(secondsLeft);
             });
         }
 
@@ -42,7 +43,15 @@ public class BoostManager {
                 mineVote.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.toString());
             }
             configManager.setConfig("boost-settings.status", false);
-            MineVote.setGlobalTimerSeconds(0);
+            setGlobalTimerSeconds(0);
         }).execute();
+    }
+
+    public static int getGlobalTimerSeconds() {
+        return globalTimerSeconds;
+    }
+
+    public static void setGlobalTimerSeconds(int seconds) {
+        globalTimerSeconds = seconds;
     }
 }
