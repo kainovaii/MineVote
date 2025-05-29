@@ -52,19 +52,18 @@ public class MainCommand extends BaseCommand
     @Subcommand("info")
     public void info(Player player)
     {
-        PluginMeta meta = MineVote.getInstance().getPluginMeta();
+        PluginMeta minevote = MineVote.getInstance().getPluginMeta();
         String[] messages = new String[]
-            {
-                "§6§m────────§7[§bMineVote§7]§6§m────────",
-                "§7┌ §6Author §7↪ §b" + meta.getAuthors(),
-                "§7├ §6Version §7↪ §b" + meta.getVersion(),
-                "§7├ §6Api Version §7↪ §b" + meta.getAPIVersion(),
-                "§7└ §6Depend §7↪ §b" + meta.getPluginDependencies(),
-                "§6§m──────────────────────"
-            };
+        {
+            "§6§m────────§7[§bMineVote§7]§6§m────────",
+            "§7┌ §6Author §7↪ §b" + minevote.getAuthors(),
+            "§7├ §6Version §7↪ §b" + minevote.getVersion(),
+            "§7├ §6Api Version §7↪ §b" + minevote.getAPIVersion(),
+            "§7└ §6Depend §7↪ §b" + minevote.getPluginDependencies(),
+            "§6§m──────────────────────"
+        };
         player.sendMessage(messages);
     }
-
 
     @Subcommand("shop")
     public void shop(Player player)

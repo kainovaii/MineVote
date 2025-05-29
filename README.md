@@ -8,10 +8,6 @@
     <img style="margin-left: 10px;" src="https://img.shields.io/badge/License-MIT-orange.svg" />
 </p>
 
-### TODO
-  - ⌛ Ranking player position
-  - ⌛ Player has voted view
-
 ## 📥 Installation
 
 1. **Download** the `MineVote.jar` file (link to be added).
