@@ -37,17 +37,17 @@ token: "<automatically generated>"
 
 MineVote provides a set of in-game commands to manage and interact with the voting system.
 
-| Command                         | Permission              | Description                                                                 |
-|----------------------------------|--------------------------|-----------------------------------------------------------------------------|
-| `/vote`                          | —                        | Opens the main GUI.                                                         |
-| `/vote help`                     | —                        | Displays the list of available commands.                                    |
-| `/vote info`                     | —                        | Shows plugin information (author, version, dependencies, etc.).             |
-| `/vote shop`                     | —                        | Opens the vote shop GUI.                                                    |
-| `/vote site`                     | —                        | Opens the vote sites GUI.                                                   |
-| `/vote ranking`                 | —                        | Opens the vote ranking GUI.                                                 |
-| `/vote give <player> <value>`   | `minevote.give`          | Gives `<value>` extra votes to `<player>`.                                  |
-| `/vote boost set <on/off>`      | `minevote.boost`         | Manually starts or stops the vote boost.                                    |
-| `/vote reload`                  | `minevote.reload`        | Reloads the plugin configuration.                                           |
+| Command                       | Permission              | Description                                                                 |
+|-------------------------------|--------------------------|-----------------------------------------------------------------------------|
+| `/vote`                       | —                        | Opens the main GUI.                                                         |
+| `/vote help`                  | —                        | Displays the list of available commands.                                    |
+| `/vote info`                  | —                        | Shows plugin information (author, version, dependencies, etc.).             |
+| `/vote shop`                  | —                        | Opens the vote shop GUI.                                                    |
+| `/vote site`                  | —                        | Opens the vote sites GUI.                                                   |
+| `/vote ranking`               | —                        | Opens the vote ranking GUI.                                                 |
+| `/vote give <player> <value>` | `minevote.give`          | Gives `<value>` extra votes to `<player>`.                                  |
+| `/vote boost <on/off>`        | `minevote.boost`         | Manually starts or stops the vote boost.                                    |
+| `/vote reload`                | `minevote.reload`        | Reloads the plugin configuration.                                           |
 
 ### Notes
 
