@@ -10,8 +10,10 @@ import fr.kainovaii.minevote.gui.main.MainGui;
 import fr.kainovaii.minevote.utils.BoostManager;
 import fr.kainovaii.minevote.utils.Notifier;
 import fr.kainovaii.minevote.utils.Prefix;
+import io.papermc.paper.plugin.configuration.PluginMeta;
 import jdk.jfr.Description;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
 
 @CommandAlias("minevote|vote")
 @Description("Main command")
@@ -46,6 +48,23 @@ public class MainCommand extends BaseCommand
         };
         player.sendMessage(messages);
     }
+
+    @Subcommand("info")
+    public void info(Player player)
+    {
+        PluginMeta meta = MineVote.getInstance().getPluginMeta();
+        String[] messages = new String[]
+            {
+                "§6§m────────§7[§bMineVote§7]§6§m────────",
+                "§7┌ §6Autor §7↪ §b" + meta.getAuthors(),
+                "§7├ §6Version §7↪ §b" + meta.getVersion(),
+                "§7├ §6Api Version §7↪ §b" + meta.getAPIVersion(),
+                "§7└ §6Depend §7↪ §b" + meta.getPluginDependencies(),
+                "§6§m──────────────────────"
+            };
+        player.sendMessage(messages);
+    }
+
 
     @Subcommand("shop")
     public void shop(Player player)

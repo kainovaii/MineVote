@@ -1,6 +1,6 @@
 name: MineVote
-version: '0.1'
-author: 'KainoVaii'
+version: '0.5'
+author: KainoVaii
 main: fr.kainovaii.minevote.MineVote
 api-version: '1.21'
 depend: [PlaceholderAPI, Votifier]
