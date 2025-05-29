@@ -11,21 +11,37 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class GuiUtils
 {
     private ConfigManager configManager;
 
+    public GuiUtils(Player player, int page)
+    {
+        this.configManager = MineVote.getInstance().getConfigManager();
+    }
+
     public static ItemStack playerHead(OfflinePlayer player)
     {
+        ConfigManager configManager = MineVote.getInstance().getConfigManager();
+
         int voting = VoterRepository.getVoting(player.getName());
         int bank = VoterRepository.getBank(player.getName());
 
+        List<String> loreLines = configManager.getMessageList("gui.player_head");
+        List<String> lore = loreLines.stream()
+        .map(line -> line
+        .replace("&", "§")
+        .replace("{player}", player.getName())
+        .replace("{votes}", String.valueOf(voting))
+        .replace("{points}", String.valueOf(bank)))
+        .collect(Collectors.toList());
+
         ItemStack skull = new ItemBuilder(Material.PLAYER_HEAD)
-                .name("§6" + player.getName())
-                .addLore(
-                        "§8§l→ §7Votes: §b" + voting,
-                        "§8§l→ §7Points: §b" + bank
-                ).build();
+        .name("§6" + player.getName())
+        .addLore(lore).build();
 
         SkullMeta meta = (SkullMeta) skull.getItemMeta();
         if (meta != null) {
@@ -33,11 +49,6 @@ public class GuiUtils
             skull.setItemMeta(meta);
         }
         return skull;
-    }
-
-    public GuiUtils(Player player, int page)
-    {
-        this.configManager = MineVote.getInstance().getConfigManager();
     }
 
     public static void borderGui(MainGui gui)

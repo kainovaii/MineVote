@@ -8,10 +8,13 @@ messages:
   open_site_url: "&aClique ici pour ouvrir le lien : "
   force_boost_start: "&b{player} &fvient de démarrer un boost métier !"
   force_boost_stop: "le boost métier de &b{player} &fest terminé."
-  boost_on: "&aactif"
-  boost_off: "&cinactif"
+  boost_on: "&aActif"
+  boost_off: "&cInactif"
 
 gui:
+  player_head:
+    - "§8§l→ §7Votes: §b{votes}"
+    - "§8§l→ §7Points: §b{points}"
   compass:
     name: '&6Etat du boost'
     text: '&8&l→ &b{voteCounter}/{voteObjective}'

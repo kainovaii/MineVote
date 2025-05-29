@@ -83,6 +83,15 @@ public class ConfigManager {
         }
     }
 
+    public List<String> getMessageList(String path) {
+        if (message.contains(path)) {
+            return message.getStringList(path);
+        } else {
+            plugin.getLogger().warning("La clé '" + path + "' n'a pas été trouvée dans message.yml.");
+            return Collections.singletonList("Message non trouvé.");
+        }
+    }
+
     public FileConfiguration getMessages() {
         return this.message;
     }
