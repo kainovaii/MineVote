@@ -4,12 +4,16 @@ import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
+import fr.kainovaii.minevote.domain.reward.RewardRepository;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.utils.BoostManager;
 import fr.kainovaii.minevote.utils.Notifier;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+
+import java.util.List;
 
 public class VotifierListener implements Listener
 {
@@ -25,8 +29,7 @@ public class VotifierListener implements Listener
     }
 
     @EventHandler
-    public void onVote(VotifierEvent event)
-    {
+    public void onVote(VotifierEvent event) {
         Vote vote = event.getVote();
         String playerName = vote.getUsername();
 
@@ -37,9 +40,20 @@ public class VotifierListener implements Listener
         voteIncrement(playerName);
         playerIncrementVote(playerName);
 
-        for (Object command : configManager.getConfigList("rewards"))
-        {
-            mineVote.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.toString().replace("{player}", playerName));
+        Player player = Bukkit.getPlayerExact(playerName);
+        boolean isOnline = player != null && player.isOnline();
+        List<Object> commands = configManager.getConfigList("rewards");
+
+        if (isOnline) {
+            for (Object cmd : commands) {
+                String command = cmd.toString().replace("{player}", playerName);
+                mineVote.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+            }
+        } else {
+            List<String> commandsStr = commands.stream()
+                    .map(Object::toString)
+                    .toList();
+            RewardRepository.create(playerName, commandsStr);
         }
     }
 

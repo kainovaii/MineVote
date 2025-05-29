@@ -29,30 +29,29 @@ public class SQLite
 
     public void ensureTableExists() {
         Base.exec("""
-        CREATE TABLE IF NOT EXISTS voters (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            uuid TEXT NOT NULL UNIQUE,
-            name TEXT NOT NULL,
-            voting INTEGER NOT NULL,
-            bank DECIMAL NOT NULL
-        )
-    """);
+            CREATE TABLE IF NOT EXISTS voters (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                uuid TEXT NOT NULL UNIQUE,
+                name TEXT NOT NULL,
+                voting INTEGER NOT NULL,
+                bank DECIMAL NOT NULL
+            )
+        """);
         Base.exec("""
-        CREATE TABLE IF NOT EXISTS rewards (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL UNIQUE,
-            item TEXT NOT NULL,
-            price DECIMAL NOT NULL
-        )
-    """);
+            CREATE TABLE IF NOT EXISTS transactions (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                amount DECIMAL NOT NULL UNIQUE,
+                reason TEXT NOT NULL UNIQUE,
+                createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+            )
+        """);
         Base.exec("""
-        CREATE TABLE IF NOT EXISTS transactions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            amount DECIMAL NOT NULL UNIQUE,
-            reason TEXT NOT NULL UNIQUE,
-            createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-        )
-    """);
+            CREATE TABLE IF NOT EXISTS rewards (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                commands TEXT NOT NULL
+            )
+        """);
     }
 
     public SQLite getInstance() {
