@@ -56,7 +56,7 @@ public class MainCommand extends BaseCommand
         String[] messages = new String[]
             {
                 "§6§m────────§7[§bMineVote§7]§6§m────────",
-                "§7┌ §6Autor §7↪ §b" + meta.getAuthors(),
+                "§7┌ §6Author §7↪ §b" + meta.getAuthors(),
                 "§7├ §6Version §7↪ §b" + meta.getVersion(),
                 "§7├ §6Api Version §7↪ §b" + meta.getAPIVersion(),
                 "§7└ §6Depend §7↪ §b" + meta.getPluginDependencies(),
