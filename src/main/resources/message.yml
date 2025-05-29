@@ -13,6 +13,8 @@ messages:
 
 gui:
   player_head:
+    name: "&6{player}"
+    lore:
     - "§8§l→ §7Votes: §b{votes}"
     - "§8§l→ §7Points: §b{points}"
   compass:

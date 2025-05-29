@@ -30,7 +30,7 @@ public class GuiUtils
         int voting = VoterRepository.getVoting(player.getName());
         int bank = VoterRepository.getBank(player.getName());
 
-        List<String> loreLines = configManager.getMessageList("gui.player_head");
+        List<String> loreLines = configManager.getMessageList("gui.player_head.lore");
         List<String> lore = loreLines.stream()
         .map(line -> line
         .replace("&", "§")
@@ -40,7 +40,7 @@ public class GuiUtils
         .collect(Collectors.toList());
 
         ItemStack skull = new ItemBuilder(Material.PLAYER_HEAD)
-        .name("§6" + player.getName())
+        .name(configManager.getMessage("gui.player_head.name").replace("{player}", player.getName()))
         .addLore(lore).build();
 
         SkullMeta meta = (SkullMeta) skull.getItemMeta();

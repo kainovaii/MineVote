@@ -13,7 +13,6 @@ import fr.kainovaii.minevote.utils.Prefix;
 import io.papermc.paper.plugin.configuration.PluginMeta;
 import jdk.jfr.Description;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginDescriptionFile;
 
 @CommandAlias("minevote|vote")
 @Description("Main command")
