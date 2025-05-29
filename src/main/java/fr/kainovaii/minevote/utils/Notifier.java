@@ -1,11 +1,9 @@
 package fr.kainovaii.minevote.utils;
 
-import fr.kainovaii.minevote.MineVote;
-import fr.kainovaii.minevote.config.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class MineVoteNotifier
+public class Notifier
 {
 
     public static void broadcast(String message)

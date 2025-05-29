@@ -8,18 +8,17 @@ import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.gui.ShopGui;
 import fr.kainovaii.minevote.gui.main.MainGui;
 import fr.kainovaii.minevote.utils.BoostManager;
-import fr.kainovaii.minevote.utils.MineVoteNotifier;
+import fr.kainovaii.minevote.utils.Notifier;
 import fr.kainovaii.minevote.utils.Prefix;
 import jdk.jfr.Description;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandAlias("minevote|vote")
 @Description("Main command")
 public class MainCommand extends BaseCommand
 {
-    private ConfigManager configManager;
-    private BoostManager boostManager;
+    private final ConfigManager configManager;
+    private final BoostManager boostManager;
 
     public MainCommand () {
         this.configManager = MineVote.getInstance().getConfigManager();
@@ -30,6 +29,22 @@ public class MainCommand extends BaseCommand
     public void index(Player player)
     {
         new MainGui(player).open(player);
+    }
+
+    @Subcommand("help")
+    public void help(Player player)
+    {
+        String[] messages = new String[]
+        {
+            "§6§m────────§7[§bMineVote§7]§6§m────────",
+            "§7┌ §6/§bvote reload",
+            "§7├ §6/§bvote boost §6<§bon/off§6>",
+            "§7├ §6/§bvote shop",
+            "§7├ §6/§bvote site",
+            "§7└ §6/§bvote ranking",
+            "§6§m──────────────────────"
+        };
+        player.sendMessage(messages);
     }
 
     @Subcommand("shop")
@@ -71,12 +86,12 @@ public class MainCommand extends BaseCommand
         if (value)
         {
             boostManager.start();
-            MineVoteNotifier.broadcast(configManager.getMessage("messages.force_boost_start")
+            Notifier.broadcast(configManager.getMessage("messages.force_boost_start")
                     .replace("{player}", player.getName())
             );
         } else {
-            // Logic boost stop
-            MineVoteNotifier.broadcast(configManager.getMessage("messages.force_boost_stop")
+            boostManager.stop();
+            Notifier.broadcast(configManager.getMessage("messages.force_boost_stop")
                     .replace("{player}", player.getName())
             );
         }
@@ -88,5 +103,4 @@ public class MainCommand extends BaseCommand
         configManager.reloadConfigs();
         player.sendMessage(Prefix.BASE.get() + "the config has been reloaded");
     }
-
 }

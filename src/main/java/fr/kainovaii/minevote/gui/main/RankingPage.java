@@ -35,14 +35,7 @@ public class RankingPage
             String name = voter.getString("name");
             OfflinePlayer offline = Bukkit.getOfflinePlayer(name);
 
-            gui.setItem(slot, new ItemBuilder(GuiUtils.playerHead(offline))
-                    .name("§6" + offline.getName())
-                    .build(), event -> {
-                if (event.isLeftClick()) {
-                    // Logic
-                }
-            });
-
+            gui.setItem(slot, new ItemBuilder(GuiUtils.playerHead(offline)).name("§6" + offline.getName()).build());
             slot++;
         }
 

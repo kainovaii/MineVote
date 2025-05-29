@@ -6,10 +6,9 @@ import co.aikar.taskchain.TaskChainFactory;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
 
-
-public class BoostManager {
+public class BoostManager
+{
     private final MineVote mineVote;
     private final ConfigManager configManager;
     private final TaskChainFactory taskChainFactory;
@@ -38,13 +37,16 @@ public class BoostManager {
             });
         }
 
-        chain.sync(() -> {
-            for (Object command : configManager.getConfigList("boost-event.end")) {
-                mineVote.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.toString());
-            }
-            configManager.setConfig("boost-settings.status", false);
-            setGlobalTimerSeconds(0);
-        }).execute();
+        chain.sync(this::stop).execute();
+    }
+
+    public void stop()
+    {
+        for (Object command : configManager.getConfigList("boost-event.end")) {
+            mineVote.getServer().dispatchCommand(Bukkit.getConsoleSender(), command.toString());
+        }
+        configManager.setConfig("boost-settings.status", false);
+        setGlobalTimerSeconds(0);
     }
 
     public static int getGlobalTimerSeconds() {

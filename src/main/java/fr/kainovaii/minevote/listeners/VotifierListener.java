@@ -1,22 +1,15 @@
 package fr.kainovaii.minevote.listeners;
 
-import co.aikar.taskchain.BukkitTaskChainFactory;
-import co.aikar.taskchain.TaskChain;
-import co.aikar.taskchain.TaskChainFactory;
-import co.aikar.taskchain.TaskChainTasks;
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.utils.BoostManager;
-import fr.kainovaii.minevote.utils.MineVoteNotifier;
-import fr.kainovaii.minevote.utils.Prefix;
+import fr.kainovaii.minevote.utils.Notifier;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-
-import java.util.List;
 
 public class VotifierListener implements Listener
 {
@@ -69,7 +62,7 @@ public class VotifierListener implements Listener
 
         if (newCount != voteObjective)
         {
-            MineVoteNotifier.broadcast(configManager.getMessage("messages.player_voted")
+            Notifier.broadcast(configManager.getMessage("messages.player_voted")
                     .replace("{vote_counter}", String.valueOf(newCount))
                     .replace("{vote_objective}", String.valueOf(voteObjective))
                     .replace("{player}", playerName));
@@ -78,7 +71,7 @@ public class VotifierListener implements Listener
 
         if (newCount >= voteObjective)
         {
-            MineVoteNotifier.broadcast(configManager.getMessage("messages.start_boost").replace("{player}", playerName));
+            Notifier.broadcast(configManager.getMessage("messages.start_boost").replace("{player}", playerName));
             configManager.setConfig("boost-settings.counter", 0);
             boostManager.start();
         }
