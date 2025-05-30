@@ -35,8 +35,8 @@ public class MineVotePapiExpansion  extends PlaceholderExpansion
                 }
             }
             case "timeleft" -> {
-                int timeLeft = BoostManager.getGlobalTimerSeconds();
-                if(timeLeft > 0) {
+                int timeLeft = BoostManager.getBoostTimer();
+                if(timeLeft > 0 && BoostManager.getBoostActive()) {
                     int minutes = timeLeft / 60;
                     int seconds = timeLeft % 60;
                     return String.format("%02d:%02d", minutes, seconds);

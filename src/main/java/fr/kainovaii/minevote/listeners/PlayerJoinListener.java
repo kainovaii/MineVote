@@ -1,21 +1,17 @@
 package fr.kainovaii.minevote.listeners;
 
-import com.google.gson.Gson;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
-import fr.kainovaii.minevote.domain.reward.Reward;
 import fr.kainovaii.minevote.domain.reward.RewardRepository;
 import fr.kainovaii.minevote.domain.voter.Voter;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.utils.Prefix;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.UUID;
 
 public class PlayerJoinListener implements Listener
@@ -51,6 +47,5 @@ public class PlayerJoinListener implements Listener
             );
             RewardRepository.getCommandsFrom(playerName);
         }
-
     }
 }
