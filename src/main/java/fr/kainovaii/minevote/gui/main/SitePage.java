@@ -52,8 +52,27 @@ public class SitePage
                 player.spigot().sendMessage(message);
             });
             slot++;
-        }
 
+            gui.setItem(8, new ItemBuilder(Material.OAK_SIGN)
+                    .name("§6Voir tout les sites")
+                    .lore( "§2➤§f Clic gauche pour ouvrir"  )
+                    .build(), event -> {
+                player.closeInventory();
+
+                for (Map.Entry<String, ConfigurationSection> e : gui.getConfig().getProviders().entrySet()) {
+                    String tName = e.getValue().getString("title").replace("&", "§");
+                    String tUrl = e.getValue().getString("url");
+
+                    TextComponent message = new TextComponent("§6" + tName + ": ");
+                    TextComponent link = new TextComponent(tUrl);
+                    link.setColor(net.md_5.bungee.api.ChatColor.AQUA);
+                    link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, tUrl));
+                    message.addExtra(link);
+
+                    player.spigot().sendMessage(message);
+                }
+            });
+        }
         GuiUtils.arrowBack(player, gui, 0);
     }
 
