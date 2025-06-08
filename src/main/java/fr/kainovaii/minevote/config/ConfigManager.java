@@ -111,19 +111,14 @@ public class ConfigManager {
     }
 
     public Map<String, ConfigurationSection> getProviders() {
-        Map<String, ConfigurationSection> providersMap = new HashMap<>();
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("providers");
+        if (section == null) return Collections.emptyMap();
 
-        if (section != null) {
-            for (String key : section.getKeys(false)) {
-                ConfigurationSection providerSection = section.getConfigurationSection(key);
-                if (providerSection != null) {
-                    providersMap.put(key, providerSection);
-                }
-            }
+        Map<String, ConfigurationSection> providers = new LinkedHashMap<>();
+        for (String key : section.getKeys(false)) {
+            providers.put(key, section.getConfigurationSection(key));
         }
-
-        return providersMap;
+        return providers;
     }
 
     public Map<String, ConfigurationSection> getShopItems() {

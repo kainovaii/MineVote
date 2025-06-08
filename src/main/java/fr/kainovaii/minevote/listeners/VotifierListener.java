@@ -9,10 +9,13 @@ import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.utils.BoostManager;
 import fr.kainovaii.minevote.utils.Notifier;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import java.io.File;
 import java.util.List;
 
 public class VotifierListener implements Listener
@@ -21,21 +24,35 @@ public class VotifierListener implements Listener
     private final ConfigManager configManager;
     private final BoostManager boostManager;
 
+    private File votesFile;
+    private FileConfiguration votesConfig;
+
     public VotifierListener(MineVote plugin)
     {
         this.mineVote = plugin;
         this.configManager = plugin.getConfigManager();
         this.boostManager = new BoostManager();
+
+        votesFile = new File(plugin.getDataFolder(), "votes.yml");
+        if (!votesFile.exists()) {
+            plugin.saveResource("votes.yml", false);
+        }
+        votesConfig = YamlConfiguration.loadConfiguration(votesFile);
     }
 
     @EventHandler
-    public void onVote(VotifierEvent event) {
+    public void onVote(VotifierEvent event)
+    {
         Vote vote = event.getVote();
         String playerName = vote.getUsername();
+        String siteID = vote.getServiceName();
 
         if (playerName == null || playerName.isEmpty()) {
             return;
         }
+
+        long now = System.currentTimeMillis() / 1000L;
+        mineVote.getVotesManager().setLastVoteTimestamp(playerName, siteID, now);
 
         voteIncrement(playerName);
         playerIncrementVote(playerName);

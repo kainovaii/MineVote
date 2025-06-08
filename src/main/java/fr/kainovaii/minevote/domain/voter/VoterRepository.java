@@ -7,10 +7,9 @@ import org.javalite.activejdbc.Model;
 
 public class VoterRepository
 {
-    private final Voter voter;
 
     public VoterRepository() {
-        voter = new Voter();
+        Voter voter = new Voter();
     }
 
     public void create(String uuid, String name)

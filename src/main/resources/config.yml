@@ -11,6 +11,7 @@ providers:
   site1:
       title: "&fServeur privé"
       url: 'https://serveur-prive.net/minecraft/monserveur'
+      cooldown: 86400 # seconds
 
 # Player vote event (command)
 rewards:

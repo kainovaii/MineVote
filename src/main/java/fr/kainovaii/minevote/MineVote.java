@@ -5,12 +5,14 @@ import fr.kainovaii.minevote.command.MainCommand;
 import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.listeners.VotifierListener;
 import fr.kainovaii.minevote.utils.Loader;
+import fr.kainovaii.minevote.utils.VotesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MineVote extends JavaPlugin
 {
     private static MineVote instance;
     public ConfigManager configManager;
+    private VotesManager votesManager;
 
     @Override
     public void onEnable()
@@ -20,6 +22,7 @@ public final class MineVote extends JavaPlugin
         loader.registerMotd();
         loader.registerConfig();
         this.configManager = loader.configManager;
+        this.votesManager = new VotesManager(this);
         loader.connectDatabase();
         loader.registerListener();
         loader.registerCommand();
@@ -29,6 +32,8 @@ public final class MineVote extends JavaPlugin
     public ConfigManager getConfigManager() {
         return configManager;
     }
+
+    public VotesManager getVotesManager() { return votesManager; }
 
     public static MineVote getInstance()
     {

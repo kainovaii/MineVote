@@ -5,8 +5,10 @@ import org.bukkit.Bukkit;
 
 import java.util.List;
 
-public class RewardRepository {
-    public static void create(String name, List<String> commands) {
+public class RewardRepository
+{
+    public static void create(String name, List<String> commands)
+    {
         Gson gson = new Gson();
         String commandsJson = gson.toJson(commands);
         Reward reward = new Reward();
@@ -14,7 +16,8 @@ public class RewardRepository {
         reward.saveIt();
     }
 
-    public static void getCommandsFrom(String name) {
+    public static void getCommandsFrom(String name)
+    {
         List<Reward> rewards = Reward.where("name = ?", name);
         Gson gson = new Gson();
         for (Reward reward : rewards) {
