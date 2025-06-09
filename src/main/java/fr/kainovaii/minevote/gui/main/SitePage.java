@@ -103,21 +103,10 @@ public class SitePage
                 java.time.ZoneId.systemDefault()
         ).format(java.time.format.DateTimeFormatter.ofPattern("dd-MM HH:mm:ss"));
 
-        char[] fancyDigits = {'⓿', '➊', '➋', '➌', '➍', '➎', '➏', '➐', '➑', '➒'};
-        StringBuilder fancyDate = new StringBuilder();
-
-        for (char c : converted.toCharArray()) {
-            if (Character.isDigit(c)) {
-                fancyDate.append(fancyDigits[c - '0']);
-            } else {
-                fancyDate.append(c);
-            }
-        }
-
         if (votesManager.canVote(player.getName(), siteId))
         {
             return "Vous pouvez voter";
         }
-        return fancyDate.toString();
+        return converted;
     }
 }
