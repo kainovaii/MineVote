@@ -10,6 +10,10 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public class SitePage
@@ -33,12 +37,17 @@ public class SitePage
             ConfigurationSection provider = entry.getValue();
             String name = provider.getString("title").replace("&", "§");
             String url = provider.getString("url");
+            long timestamp = votesManager.getLastVoteTimestamp(player.getName(), siteId);
+
+
 
             gui.setItem(slot, new ItemBuilder(materialCanVote(player, siteId))
                     .name("§6Vote sur " + name)
                     .lore(
-                            "§7" + url,
-                            "§2➤§f Clic gauche pour ouvrir"
+                            "§7┌ §b" + url,
+                            "§7├ §b" + getStringTime(player, siteId ,timestamp),
+                            "§7│",
+                            "§7└ §7(§aClic pour ouvrir§7)"
                     )
                     .build(), event -> {
                 player.closeInventory();
@@ -55,7 +64,9 @@ public class SitePage
 
             gui.setItem(8, new ItemBuilder(Material.OAK_SIGN)
                     .name("§6Voir tout les sites")
-                    .lore( "§2➤§f Clic gauche pour ouvrir"  )
+                    .lore(
+                        "§2➤§f Clic gauche pour ouvrir"
+                    )
                     .build(), event -> {
                 player.closeInventory();
 
@@ -83,5 +94,30 @@ public class SitePage
             return Material.GREEN_WOOL;
         }
         return Material.RED_WOOL;
+    }
+
+    public String getStringTime(Player player, String siteId, long timestamp)
+    {
+        String converted = java.time.LocalDateTime.ofInstant(
+                java.time.Instant.ofEpochSecond(timestamp),
+                java.time.ZoneId.systemDefault()
+        ).format(java.time.format.DateTimeFormatter.ofPattern("dd-MM HH:mm:ss"));
+
+        char[] fancyDigits = {'⓿', '➊', '➋', '➌', '➍', '➎', '➏', '➐', '➑', '➒'};
+        StringBuilder fancyDate = new StringBuilder();
+
+        for (char c : converted.toCharArray()) {
+            if (Character.isDigit(c)) {
+                fancyDate.append(fancyDigits[c - '0']);
+            } else {
+                fancyDate.append(c);
+            }
+        }
+
+        if (votesManager.canVote(player.getName(), siteId))
+        {
+            return "Vous pouvez voter";
+        }
+        return fancyDate.toString();
     }
 }

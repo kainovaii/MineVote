@@ -1,5 +1,5 @@
 name: MineVote
-version: '0.5'
+version: '0.8'
 author: KainoVaii
 main: fr.kainovaii.minevote.MineVote
 api-version: '1.21'
