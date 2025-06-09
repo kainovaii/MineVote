@@ -17,8 +17,10 @@ public class MineVotePapiExpansion  extends PlaceholderExpansion
     }
 
     @Override
-    public String onRequest(OfflinePlayer player, String identifier) {
-        switch (identifier) {
+    public String onRequest(OfflinePlayer player, String identifier)
+    {
+        switch (identifier)
+        {
             case "counter" -> {
                 int voteCount = (int) configManager.getConfig("boost-settings.counter");
                 return String.valueOf(voteCount);
