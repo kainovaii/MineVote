@@ -142,7 +142,6 @@ public class ConfigManager {
 
     public Map<String, ConfigurationSection> getShopShulkers() {
         Map<String, ConfigurationSection> shulkersMap = new HashMap<>();
-
         ConfigurationSection shulkersSection = shop.getConfigurationSection("shop-gui.shulkers");
         if (shulkersSection != null) {
             for (String key : shulkersSection.getKeys(false)) {
@@ -155,7 +154,6 @@ public class ConfigManager {
         } else {
             plugin.getLogger().warning("shop-gui.shulkers introuvable dans shop.yml");
         }
-
         return shulkersMap;
     }
 
