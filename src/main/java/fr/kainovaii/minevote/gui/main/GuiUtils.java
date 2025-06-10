@@ -75,8 +75,7 @@ public class GuiUtils
 
     public static void arrowBack(Player player, InventoryAPI gui, int page)
     {
-        ItemStack headArrow = HeadUtils.getCustomHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDQ4OTIwNGQxYzk3YzY5MGYyNzBhOGQ2Y2YwNDEyMjgyODhjNDU3OTJjNjZjMTY1NDc4MWM4MzRkMjg3M2JhNSJ9fX0=");
-
+        ItemStack headArrow = HeadUtils.getCustomHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWExZWYzOThhMTdmMWFmNzQ3NzAxNDUxN2Y3ZjE0MWQ4ODZkZjQxYTMyYzczOGNjOGE4M2ZiNTAyOTdiZDkyMSJ9fX0=");
         gui.setItem(26, new ItemBuilder(headArrow).name("§cRetour").build(), event -> {
             if (event.isLeftClick()) {
                 player.closeInventory();
@@ -92,11 +91,11 @@ public class GuiUtils
         ItemStack boostItem =  HeadUtils.getCustomHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTJhNzFiYjljYzgwZGU5MjI4ZTgxN2U3ZTdiZDY0MmRmNWU0OThmYTNkMzhiMGQwNmU3MGUzYTgyYWY3YmNkMCJ9fX0=");
 
         ItemStack compass = new ItemBuilder(boostItem)
-                .name(gui.getConfig().getMessage("gui.compass.name"))
-                .addLore(gui.getConfig().getMessage("gui.compass.text")
-                        .replace("{voteCounter}", String.valueOf(voteCounter))
-                        .replace("{voteObjective}", String.valueOf(voteObjective))
-                ).build();
+        .name(gui.getConfig().getMessage("gui.compass.name"))
+        .addLore(gui.getConfig().getMessage("gui.compass.text")
+                .replace("{voteCounter}", String.valueOf(voteCounter))
+                .replace("{voteObjective}", String.valueOf(voteObjective))
+        ).build();
         return compass;
     }
 }

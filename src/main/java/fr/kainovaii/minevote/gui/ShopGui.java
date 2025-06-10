@@ -121,7 +121,8 @@ public class ShopGui extends InventoryAPI {
         }
     }
 
-    private ItemStack buildDisplayItem(ConfigurationSection section) {
+    private ItemStack buildDisplayItem(ConfigurationSection section)
+    {
         String name = section.getString("name", "§fItem inconnu").replace("&", "§");
         String materialName = section.getString("material", "STONE");
         List<String> lore = section.getStringList("lore");
@@ -151,7 +152,6 @@ public class ShopGui extends InventoryAPI {
             } catch (Exception ignored) {
             }
         }
-
         return builder.build();
     }
 

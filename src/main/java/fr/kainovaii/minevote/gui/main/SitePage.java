@@ -34,6 +34,7 @@ public class SitePage
             ConfigurationSection provider = entry.getValue();
             String name = provider.getString("title").replace("&", "§");
             String url = provider.getString("url");
+            ItemStack siteAll = HeadUtils.getCustomHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTJkNTkyMGJhNTZlYjY5M2I4YmRiNjg2ODIzMmI2YjEwNTM2MDU4YjQ3OTQyMzZmZTQyMWIwMTI5ZTczZDJiMyJ9fX0=");
 
             gui.setItem(slot, new ItemBuilder(materialCanVote(player, siteId))
                     .name("§6Vote sur " + name)
@@ -56,7 +57,7 @@ public class SitePage
             });
             slot++;
 
-            gui.setItem(8, new ItemBuilder(Material.OAK_SIGN)
+            gui.setItem(8, new ItemBuilder(siteAll)
                     .name(configManager.getMessage("gui.site_page.sign.name"))
                     .lore(configManager.getMessage("gui.site_page.sign.lore"))
                     .build(), event -> {
