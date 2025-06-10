@@ -50,12 +50,8 @@ public class ShopGui extends InventoryAPI {
         }
         setupItems();
         setItem(4, GuiUtils.playerHead(player));
-        setItem(26, new ItemBuilder(Material.ARROW).name("§cRetour").build(), event -> {
-            if (event.isLeftClick()) {
-                player.closeInventory();
-                new MainGui(player).open(player);
-            }
-        });
+
+        GuiUtils.arrowBack(player, this, 0);
     }
 
     public void setupItems() {

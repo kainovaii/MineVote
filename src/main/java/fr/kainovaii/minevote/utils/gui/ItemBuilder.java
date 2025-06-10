@@ -1,5 +1,17 @@
 package fr.kainovaii.minevote.utils.gui;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
+
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.UUID;
+
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -7,11 +19,11 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.lang.reflect.Field;
+import java.net.URI;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class ItemBuilder {
@@ -140,6 +152,8 @@ public class ItemBuilder {
         this.meta.removeItemFlags(flags);
         return this;
     }
+
+
 
     public ItemBuilder removeFlags() {
         return removeFlags(ItemFlag.values());

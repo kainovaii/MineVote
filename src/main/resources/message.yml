@@ -27,3 +27,12 @@ gui:
     site: "&6Vote site"
     shop: "&6Vote shop"
     ranking: "&6Classement"
+  site_page:
+    site_lore:
+      site_url: "&b{site_url}"
+      can_vote_yes: "&bVous pouvez voter"
+      can_vote_no: "&bProchain vote: &a{time}"
+      footer: "&7(&aClic pour ouvrir&7)"
+    sign:
+      name: "&6Voir tout les sites"
+      lore: "&2➤ &fClic gauche pour ouvrir"
