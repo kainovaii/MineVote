@@ -1,5 +1,7 @@
 package fr.kainovaii.minevote.utils.gui;
 
+import fr.kainovaii.minevote.MineVote;
+import fr.kainovaii.minevote.config.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -22,8 +24,10 @@ public abstract class InventoryAPI implements InventoryHolder {
     private final List<Consumer<InventoryOpenEvent>> openHandlers = new ArrayList<>();
     private final List<Consumer<InventoryCloseEvent>> closeHandlers = new ArrayList<>();
     private final List<Consumer<InventoryClickEvent>> clickHandlers = new ArrayList<>();
+    private final ConfigManager configManager;
 
     private final Inventory inventory;
+    private static InventoryAPI instance;
 
     private Predicate<Player> closeFilter;
 
@@ -65,7 +69,9 @@ public abstract class InventoryAPI implements InventoryHolder {
         this(0, Objects.requireNonNull(type, "type"), title);
     }
 
-    private InventoryAPI(int size, InventoryType type, String title) {
+    private InventoryAPI(int size, InventoryType type, String title)
+    {
+        this.configManager = MineVote.getInstance().getConfigManager();
         if (type == InventoryType.CHEST && size > 0) {
             this.inventory = Bukkit.createInventory(this, size, title);
         } else {
@@ -336,5 +342,10 @@ public abstract class InventoryAPI implements InventoryHolder {
         if (clickConsumer != null) {
             clickConsumer.accept(e);
         }
+    }
+
+    public ConfigManager getConfig()
+    {
+        return configManager;
     }
 }

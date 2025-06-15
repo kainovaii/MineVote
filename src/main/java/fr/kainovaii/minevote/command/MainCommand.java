@@ -32,55 +32,7 @@ public class MainCommand extends BaseCommand
         new MainGui(player).open(player);
     }
 
-    @Subcommand("help")
-    public void help(Player player)
-    {
-        String[] messages = new String[]
-        {
-            "§6§m────────§7[§bMineVote§7]§6§m────────",
-            "§7┌ §6/§bvote reload",
-            "§7├ §6/§bvote boost §6<§bon/off§6>",
-            "§7├ §6/§bvote shop",
-            "§7├ §6/§bvote site",
-            "§7└ §6/§bvote ranking",
-            "§6§m──────────────────────"
-        };
-        player.sendMessage(messages);
-    }
 
-    @Subcommand("info")
-    public void info(Player player)
-    {
-        PluginMeta minevote = MineVote.getInstance().getPluginMeta();
-        String[] messages = new String[]
-        {
-            "§6§m────────§7[§bMineVote§7]§6§m────────",
-            "§7┌ §6Author §7↪ §b" + minevote.getAuthors(),
-            "§7├ §6Version §7↪ §b" + minevote.getVersion(),
-            "§7├ §6Api Version §7↪ §b" + minevote.getAPIVersion(),
-            "§7└ §6Depend §7↪ §b" + minevote.getPluginDependencies(),
-            "§6§m──────────────────────"
-        };
-        player.sendMessage(messages);
-    }
-
-    @Subcommand("shop")
-    public void shop(Player player)
-    {
-        new ShopGui(player).open(player);
-    }
-
-    @Subcommand("site")
-    public void site(Player player)
-    {
-        new MainGui(player, 1).open(player);
-    }
-
-    @Subcommand("ranking")
-    public void ranking(Player player)
-    {
-        new MainGui(player, 2).open(player);
-    }
 
     @Subcommand("give")
     @CommandPermission("minevote.give")

@@ -53,13 +53,13 @@ public class GuiUtils
         return skull;
     }
 
-    public static void borderGui(MainGui gui)
+    public static void borderGui(InventoryAPI gui)
     {
         String startMaterial = gui.getConfig().getConfig("customize-gui.borderMaterial").toString();
         Material borderMaterial = Material.matchMaterial(startMaterial);
 
         int[] borderSlots = {
-                1, 2, 3, 5, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 26
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 26
         };
         for (int slot : borderSlots) {
             gui.setItem(slot, new ItemBuilder(borderMaterial).name("§f").build());

@@ -3,8 +3,9 @@ package fr.kainovaii.minevote.utils;
 import co.aikar.commands.ConditionFailedException;
 import co.aikar.commands.PaperCommandManager;
 import fr.kainovaii.minevote.MineVote;
-import fr.kainovaii.minevote.command.MainCommand;
+import fr.kainovaii.minevote.command.*;
 import fr.kainovaii.minevote.config.ConfigManager;
+import fr.kainovaii.minevote.gui.ConfigGui;
 import fr.kainovaii.minevote.listeners.PlayerJoinListener;
 import fr.kainovaii.minevote.listeners.VotifierListener;
 import fr.kainovaii.minevote.utils.gui.InventoryManager;
@@ -49,6 +50,10 @@ public class Loader
         mineVote.getLogger().info("Loading commands");
         PaperCommandManager commandManager = new PaperCommandManager(mineVote);
         commandManager.registerCommand(new MainCommand());
+        commandManager.registerCommand(new InfoCommand());
+        commandManager.registerCommand(new HelpCommand());
+        commandManager.registerCommand(new ConfigCommand());
+        commandManager.registerCommand(new OpenMenuCommand());
     }
 
     public void registerExpansion ()

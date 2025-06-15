@@ -3,4 +3,4 @@ version: 'Pre-release 1.0 (no pushed version)'
 author: KainoVaii
 main: fr.kainovaii.minevote.MineVote
 api-version: '1.21'
-depend: [PlaceholderAPI, Votifier, NBTAPI]
+depend: [PlaceholderAPI, Votifier]
