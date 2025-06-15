@@ -4,7 +4,7 @@
     <br />
 </p>
 <p align="center">
-    <img src="https://img.shields.io/badge/Version-0.9-orange.svg" />
+    <img src="https://img.shields.io/badge/Version-1.0-orange.svg" />
     <img style="margin-left: 10px;" src="https://img.shields.io/badge/License-MIT-orange.svg" />
 </p>
 
@@ -72,7 +72,7 @@ MineVote provides several placeholders to display vote boost information on your
 
 ## 🎨 Supported Colors
 
-The following color names are recognized and applied in custom interfaces or items (e.g., banners, shields, GUI):
+The following color names are recognized and applied in custom interfaces or items (banners):
 
 | Nom (String)     | DyeColor         |
 |------------------|------------------|
