@@ -71,9 +71,9 @@ MineVote provides several placeholders to display vote boost information on your
 1. Make sure PlaceholderAPI is installed and loaded on your server.
 2. Integrate these placeholders into your messages, signs, or commands that support PlaceholderAPI.
 
-## 🎨 Couleurs supportées
+## 🎨 Supported Colors
 
-Les noms de couleurs suivants sont reconnus et appliqués dans les interfaces ou objets personnalisés (ex: bannières, boucliers, GUI) :
+The following color names are recognized and applied in custom interfaces or items (e.g., banners, shields, GUI):
 
 | Nom (String)     | DyeColor         |
 |------------------|------------------|
@@ -92,4 +92,3 @@ Les noms de couleurs suivants sont reconnus et appliqués dans les interfaces ou
 | `CYAN`           | `CYAN`           |
 | `MAGENTA`        | `MAGENTA`        |
 | `BROWN`          | `BROWN`          |
-```

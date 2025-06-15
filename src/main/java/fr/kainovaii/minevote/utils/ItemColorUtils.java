@@ -13,11 +13,8 @@ import org.bukkit.inventory.meta.BlockStateMeta;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Utilitaires pour appliquer des couleurs aux objets Minecraft (boucliers, etc.).
- */
-public final class ItemColorUtils {
-
+public final class ItemColorUtils
+{
     private static final Map<String, Integer> DYE_COLOR_IDS = Map.ofEntries(
             Map.entry("WHITE", 0), Map.entry("ORANGE", 1), Map.entry("MAGENTA", 2),
             Map.entry("LIGHT_BLUE", 3), Map.entry("YELLOW", 4), Map.entry("LIME", 5),
@@ -27,13 +24,6 @@ public final class ItemColorUtils {
             Map.entry("BLACK", 15)
     );
 
-    private ItemColorUtils() {
-        // Classe utilitaire, pas d'instanciation
-    }
-
-    /**
-     * Applique un tag NBT de couleur (Base) au bouclier.
-     */
     public static ItemStack applyNbtColor(ItemStack item, String colorName) {
         if (item == null || item.getType() != Material.SHIELD) return item;
 
@@ -45,9 +35,6 @@ public final class ItemColorUtils {
         return nbt.getItem();
     }
 
-    /**
-     * Applique un motif de bannière unie colorée à un bouclier.
-     */
     public static ItemStack applyBannerPattern(ItemStack item, String colorName) {
         if (item == null || item.getType() != Material.SHIELD) return item;
 
@@ -65,33 +52,6 @@ public final class ItemColorUtils {
         return item;
     }
 
-    /**
-     * Renvoie l'objet Color Bukkit correspondant à un nom de couleur.
-     */
-    public static Color getColorFromName(String colorName) {
-        return switch (colorName.toUpperCase()) {
-            case "PINK" -> Color.FUCHSIA;
-            case "RED" -> Color.RED;
-            case "BLUE" -> Color.BLUE;
-            case "GREEN" -> Color.GREEN;
-            case "YELLOW" -> Color.YELLOW;
-            case "ORANGE" -> Color.ORANGE;
-            case "PURPLE" -> Color.PURPLE;
-            case "WHITE" -> Color.WHITE;
-            case "BLACK" -> Color.BLACK;
-            case "GRAY", "GREY" -> Color.GRAY;
-            case "LIGHT_BLUE" -> Color.fromRGB(173, 216, 230);
-            case "LIME" -> Color.LIME;
-            case "CYAN" -> Color.AQUA;
-            case "MAGENTA" -> Color.FUCHSIA;
-            case "BROWN" -> Color.MAROON;
-            default -> null;
-        };
-    }
-
-    /**
-     * Renvoie l'objet DyeColor correspondant à un nom de couleur.
-     */
     public static DyeColor getDyeColorFromName(String colorName) {
         return switch (colorName.toUpperCase()) {
             case "PINK" -> DyeColor.PINK;
