@@ -9,6 +9,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -27,7 +28,7 @@ public abstract class InventoryAPI implements InventoryHolder {
     private Predicate<Player> closeFilter;
 
     /**
-     * Create a new FastInv with a custom size.
+     * Create a new InvAPI with a custom size.
      *
      * @param size The size of the inventory.
      */
@@ -36,7 +37,7 @@ public abstract class InventoryAPI implements InventoryHolder {
     }
 
     /**
-     * Create a new FastInv with a custom size and title.
+     * Create a new InvAPI with a custom size and title.
      *
      * @param size  The size of the inventory.
      * @param title The title (name) of the inventory.
@@ -46,7 +47,7 @@ public abstract class InventoryAPI implements InventoryHolder {
     }
 
     /**
-     * Create a new FastInv with a custom type.
+     * Create a new InvAPI with a custom type.
      *
      * @param type The type of the inventory.
      */
@@ -55,7 +56,7 @@ public abstract class InventoryAPI implements InventoryHolder {
     }
 
     /**
-     * Create a new FastInv with a custom type and title.
+     * Create a new InvAPI with a custom type and title.
      *
      * @param type  The type of the inventory.
      * @param title The title of the inventory.
@@ -72,7 +73,7 @@ public abstract class InventoryAPI implements InventoryHolder {
         }
 
         if (this.inventory.getHolder() != this) {
-            throw new IllegalStateException("Inventory holder is not FastInv, found: " + this.inventory.getHolder());
+            throw new IllegalStateException("Inventory holder is not InvAPI, found: " + this.inventory.getHolder());
         }
     }
 
@@ -246,7 +247,39 @@ public abstract class InventoryAPI implements InventoryHolder {
      * @param player The player to open the menu.
      */
     public void open(Player player) {
-        player.openInventory(this.inventory);
+        Inventory currentInventory = player.getOpenInventory().getTopInventory();
+
+        // Vérifier si le joueur a déjà un inventaire ouvert du même type et taille
+        if (currentInventory != null &&
+                currentInventory.getType() == this.inventory.getType() &&
+                currentInventory.getSize() == this.inventory.getSize() &&
+                currentInventory.getHolder() instanceof InventoryAPI) {
+
+            // Mettre à jour le contenu de l'inventaire existant
+            currentInventory.setContents(this.inventory.getContents());
+
+            // Mettre à jour le holder pour pointer vers cette nouvelle instance
+            // On utilise la réflexion pour changer le holder
+            updateInventoryHolder(currentInventory, this);
+        } else {
+            // Ouvrir un nouvel inventaire seulement si nécessaire
+            player.openInventory(this.inventory);
+        }
+    }
+
+    /**
+     * Mise à jour du holder d'un inventaire existant (utilise la réflexion)
+     */
+    private void updateInventoryHolder(Inventory inventory, InventoryHolder newHolder) {
+        try {
+            // Accéder au champ holder via réflexion (peut varier selon la version de Bukkit)
+            java.lang.reflect.Field holderField = inventory.getClass().getDeclaredField("holder");
+            holderField.setAccessible(true);
+            holderField.set(inventory, newHolder);
+        } catch (Exception e) {
+            // Si la réflexion échoue, fallback vers l'ouverture normale
+            ((Player) inventory.getViewers().get(0)).openInventory(this.inventory);
+        }
     }
 
     /**
@@ -275,7 +308,7 @@ public abstract class InventoryAPI implements InventoryHolder {
      * @return The Bukkit inventory.
      */
     @Override
-    public Inventory getInventory() {
+    public @NotNull Inventory getInventory() {
         return this.inventory;
     }
 
@@ -296,7 +329,7 @@ public abstract class InventoryAPI implements InventoryHolder {
     void handleClick(InventoryClickEvent e) {
         onClick(e);
 
-        this.clickHandlers.forEach(c -> c.accept(e));
+        this.clickHandlers.forEach(c -> c.accept((InventoryClickEvent) c));
 
         Consumer<InventoryClickEvent> clickConsumer = this.itemHandlers.get(e.getRawSlot());
 

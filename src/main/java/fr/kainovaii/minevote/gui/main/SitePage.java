@@ -7,7 +7,6 @@ import fr.kainovaii.minevote.utils.VotesManager;
 import fr.kainovaii.minevote.utils.gui.ItemBuilder;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

@@ -147,12 +147,10 @@ public class ConfigManager {
             for (String key : shulkersSection.getKeys(false)) {
                 ConfigurationSection shulkerSection = shulkersSection.getConfigurationSection(key);
                 if (shulkerSection != null) {
-                    plugin.getLogger().info("Chargement du shulker: " + key);
                     shulkersMap.put(key, shulkerSection);
                 }
             }
         } else {
-            plugin.getLogger().warning("shop-gui.shulkers introuvable dans shop.yml");
         }
         return shulkersMap;
     }

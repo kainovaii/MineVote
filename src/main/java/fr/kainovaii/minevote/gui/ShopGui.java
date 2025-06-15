@@ -4,7 +4,6 @@ import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.gui.main.GuiUtils;
-import fr.kainovaii.minevote.gui.main.MainGui;
 import fr.kainovaii.minevote.utils.Prefix;
 import fr.kainovaii.minevote.utils.gui.InventoryAPI;
 import fr.kainovaii.minevote.utils.gui.ItemBuilder;
@@ -26,22 +25,22 @@ import java.util.Map;
 public class ShopGui extends InventoryAPI {
 
     private final Player player;
-    private final int page;
     private final ConfigManager configManager;
 
     public ShopGui(Player player) {
         this(player, 0);
     }
 
-    public ShopGui(Player player, int page) {
+    public ShopGui(Player player, int page)
+    {
         super(27, "§8Vote shop");
         this.player = player;
-        this.page = page;
         this.configManager = MineVote.getInstance().getConfigManager();
         setupMenu();
     }
 
-    private void setupMenu() {
+    private void setupMenu()
+    {
         String startMaterial = configManager.getConfig("customize-gui.borderMaterial").toString();
         Material borderMaterial = Material.matchMaterial(startMaterial);
 
@@ -54,7 +53,8 @@ public class ShopGui extends InventoryAPI {
         GuiUtils.arrowBack(player, this, 0);
     }
 
-    public void setupItems() {
+    public void setupItems()
+    {
         int slot = 10;
         Map<String, ConfigurationSection> items = configManager.getShopItems();
         Map<String, ConfigurationSection> shulkers = configManager.getShopShulkers();
@@ -89,7 +89,8 @@ public class ShopGui extends InventoryAPI {
             slot++;
         }
 
-        for (Map.Entry<String, ConfigurationSection> entry : shulkers.entrySet()) {
+        for (Map.Entry<String, ConfigurationSection> entry : shulkers.entrySet())
+        {
             if (slot > 16) break;
 
             ConfigurationSection shulkerSection = entry.getValue();
@@ -116,7 +117,6 @@ public class ShopGui extends InventoryAPI {
                     p.closeInventory();
                 }
             });
-
             slot++;
         }
     }
@@ -155,7 +155,8 @@ public class ShopGui extends InventoryAPI {
         return builder.build();
     }
 
-    private ItemStack buildGiveItem(ConfigurationSection section) {
+    private ItemStack buildGiveItem(ConfigurationSection section)
+    {
         String name = section.getString("name", "§fItem inconnu").replace("&", "§");
         String materialName = section.getString("material", "STONE");
         List<String> lore = section.getStringList("lore");
@@ -185,7 +186,8 @@ public class ShopGui extends InventoryAPI {
         return builder.build();
     }
 
-    private ItemStack buildShulkerDisplayItem(ConfigurationSection section) {
+    private ItemStack buildShulkerDisplayItem(ConfigurationSection section)
+    {
         String name = section.getString("name", "§fShulker inconnu").replace("&", "§");
         String materialName = section.getString("material", "SHULKER_BOX");
         List<String> lore = section.getStringList("lore");
@@ -226,11 +228,11 @@ public class ShopGui extends InventoryAPI {
             meta.setBlockState(shulkerBox);
             shulkerDisplay.setItemMeta(meta);
         }
-
         return shulkerDisplay;
     }
 
-    private ItemStack buildShulkerGiveItem(ConfigurationSection section) {
+    private ItemStack buildShulkerGiveItem(ConfigurationSection section)
+    {
         String name = section.getString("name", "§fShulker inconnu").replace("&", "§");
         String materialName = section.getString("material", "SHULKER_BOX");
         List<String> lore = section.getStringList("lore");
@@ -271,9 +273,8 @@ public class ShopGui extends InventoryAPI {
         return shulkerGive;
     }
 
-    public boolean playerBuyItem(Player player, int price) {
-        //PlayerBuyItemEvent buyEvent = new PlayerBuyItemEvent(player, "0x40f545dQ545", price);
-        //Bukkit.getPluginManager().callEvent(buyEvent);
+    public boolean playerBuyItem(Player player, int price)
+    {
         int bank = VoterRepository.getBank(player.getName());
 
         if (bank >= price) {
@@ -284,5 +285,4 @@ public class ShopGui extends InventoryAPI {
             return false;
         }
     }
-
 }

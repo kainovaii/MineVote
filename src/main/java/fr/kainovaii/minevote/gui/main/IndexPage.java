@@ -17,19 +17,16 @@ public class IndexPage
 
         gui.setItem(11, new ItemBuilder(siteHead).name(gui.getConfig().getMessage("gui.items.site")).build(), event -> {
             if (event.isLeftClick()) {
-                player.closeInventory();
                 new MainGui(player, 1).open(player);
             }
         });
         gui.setItem(13, new ItemBuilder(shopHead).name(gui.getConfig().getMessage("gui.items.shop")).build(), event -> {
             if (event.isLeftClick()) {
-                player.closeInventory();
                 new ShopGui(player).open(player);
             }
         });
         gui.setItem(15, new ItemBuilder(rankingHead).name(gui.getConfig().getMessage("gui.items.ranking")).build(), event -> {
             if (event.isLeftClick()) {
-                player.closeInventory();
                 new MainGui(player, 2).open(player);
             }
         });
