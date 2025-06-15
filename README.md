@@ -1,3 +1,4 @@
+```markdown
 <p align="center">
     <br />
     <img src="https://i.postimg.cc/C1C5nLFR/favicon.png" width="30%">
@@ -54,7 +55,6 @@ MineVote provides a set of in-game commands to manage and interact with the voti
 - Use `/vote help` in-game to see a help message.
 - Commands requiring permissions should be granted via your permissions plugin (e.g., LuckPerms).
 
-
 ## 🔧 Placeholders (PlaceholderAPI)
 
 MineVote provides several placeholders to display vote boost information on your server using PlaceholderAPI.
@@ -70,3 +70,26 @@ MineVote provides several placeholders to display vote boost information on your
 
 1. Make sure PlaceholderAPI is installed and loaded on your server.
 2. Integrate these placeholders into your messages, signs, or commands that support PlaceholderAPI.
+
+## 🎨 Couleurs supportées
+
+Les noms de couleurs suivants sont reconnus et appliqués dans les interfaces ou objets personnalisés (ex: bannières, boucliers, GUI) :
+
+| Nom (String)     | DyeColor         |
+|------------------|------------------|
+| `PINK`           | `PINK`           |
+| `RED`            | `RED`            |
+| `BLUE`           | `BLUE`           |
+| `GREEN`          | `GREEN`          |
+| `YELLOW`         | `YELLOW`         |
+| `ORANGE`         | `ORANGE`         |
+| `PURPLE`         | `PURPLE`         |
+| `WHITE`          | `WHITE`          |
+| `BLACK`          | `BLACK`          |
+| `GRAY` / `GREY`  | `GRAY`           |
+| `LIGHT_BLUE`     | `LIGHT_BLUE`     |
+| `LIME`           | `LIME`           |
+| `CYAN`           | `CYAN`           |
+| `MAGENTA`        | `MAGENTA`        |
+| `BROWN`          | `BROWN`          |
+```
