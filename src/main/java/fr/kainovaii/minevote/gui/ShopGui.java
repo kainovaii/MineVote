@@ -1,21 +1,31 @@
 package fr.kainovaii.minevote.gui;
 
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import fr.kainovaii.minevote.MineVote;
 import fr.kainovaii.minevote.config.ConfigManager;
 import fr.kainovaii.minevote.domain.voter.VoterRepository;
 import fr.kainovaii.minevote.gui.main.GuiUtils;
+import fr.kainovaii.minevote.utils.ItemColorUtils;
 import fr.kainovaii.minevote.utils.Prefix;
 import fr.kainovaii.minevote.utils.gui.InventoryAPI;
 import fr.kainovaii.minevote.utils.gui.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.block.Banner;
 import org.bukkit.block.ShulkerBox;
+import org.bukkit.block.banner.Pattern;
+import org.bukkit.block.banner.PatternType;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -152,7 +162,20 @@ public class ShopGui extends InventoryAPI {
             } catch (Exception ignored) {
             }
         }
-        return builder.build();
+
+        ItemStack item = builder.build();
+
+        String nbtColor = section.getString("nbt-color");
+        if (nbtColor != null) {
+            item = ItemColorUtils.applyNbtColor(item, nbtColor);
+        }
+
+        String bannerPattern = section.getString("banner-pattern");
+        if (bannerPattern != null) {
+            item = ItemColorUtils.applyBannerPattern(item, bannerPattern);
+        }
+
+        return item;
     }
 
     private ItemStack buildGiveItem(ConfigurationSection section)
@@ -183,7 +206,21 @@ public class ShopGui extends InventoryAPI {
             }
         }
 
-        return builder.build();
+        ItemStack item = builder.build();
+
+        // Gestion de la couleur NBT
+        String nbtColor = section.getString("nbt-color");
+        if (nbtColor != null) {
+            item = ItemColorUtils.applyNbtColor(item, nbtColor);
+        }
+
+        String bannerPattern = section.getString("banner-pattern");
+        if (bannerPattern != null) {
+            item = ItemColorUtils.applyBannerPattern(item, bannerPattern);
+        }
+
+
+        return item;
     }
 
     private ItemStack buildShulkerDisplayItem(ConfigurationSection section)
