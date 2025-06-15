@@ -1,4 +1,3 @@
-```markdown
 <p align="center">
     <br />
     <img src="https://i.postimg.cc/C1C5nLFR/favicon.png" width="30%">
